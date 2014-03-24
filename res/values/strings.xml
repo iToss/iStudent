@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">iStudent</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="blague"><u><b>Blague</b></u></string>
+    <string name="savoir"><u><b>Le savais - tu ?</b></u></string>
+    <string name="question"><u>• Question: </u></string>
+    <string name="reponse"><u>• Réponse: </u></string>
+    <string name="histoire"><u>• Histoire: </u></string>
+    <string name="citation"><u>• Citation: </u></string>
+    <string name="contrepetrie"><u>• Contrepetrie: </u></string>
+    
+</resources>
