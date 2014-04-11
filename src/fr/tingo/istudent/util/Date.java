@@ -10,10 +10,7 @@
 package fr.tingo.istudent.util;
 
 import java.util.Calendar;
-
 import android.app.Activity;
-
-
 
 
 public class Date {
@@ -415,36 +412,8 @@ public class Date {
 	public static String getDayNameAt(int day, int month, int Y)
 	{
 		String[] jours = {"Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"};
-		int monthZeller = 0; //L'algorythme de Zeller utilise un Calendrier qui commence en Mars
-		
-		switch(month) // Ce switch converti un mois normal en mois pour l'algorythme de zeller
-		{
-			case 1 : monthZeller = 11;
-			break;
-			case 2 : monthZeller = 12;
-			break;
-			case 3 : monthZeller = 1;
-			break;
-			case 4 : monthZeller = 2;
-			break;
-			case 5 : monthZeller = 3;
-			break;
-			case 6 : monthZeller = 4;
-			break;
-			case 7 : monthZeller = 5;
-			break;
-			case 8 : monthZeller = 6;
-			break;
-			case 9 : monthZeller = 7;
-			break;
-			case 10 : monthZeller = 8;
-			break;
-			case 11 : monthZeller = 9;
-			break;
-			case 12 : monthZeller = 10;
-			break;
-		}
-		
+		int monthZeller = (month + 10) % 12; //L'algorythme de Zeller utilise un Calendrier qui commence en Mars
+
 		
 		if(monthZeller == 11 || monthZeller == 12) // Si on est en Janvier ou Fevrier sous le mois de zeller, on a donc une année de retard
 		{

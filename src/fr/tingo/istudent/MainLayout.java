@@ -7,17 +7,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import fr.tingo.calendrier.CalendarActivity;
 import fr.tingo.istudent.actualite.ActualiteActivity;
-import fr.tingo.istudent.calendrier.blague.DialogCalendar;
 import fr.tingo.istudent.options.OptionActivity;
 
+@SuppressLint("ViewConstructor")
 public class MainLayout extends ScrollView implements OnClickListener {
 	
 	public LinearLayout layout;
 	public MainButton buttonActualite;
 	public MainButton buttonNotes;
 	public MainButton buttonAgenda;
-	public MainButton buttonOptions;
+	public MainButton buttonContact;
 	public MainButton buttonQuitter;
 	
 	public int width;
@@ -33,16 +34,14 @@ public class MainLayout extends ScrollView implements OnClickListener {
 
 		this.width = context.getWindowManager().getDefaultDisplay().getWidth(); // On recupere la largeur de l'ecran
 		this.height = context.getWindowManager().getDefaultDisplay().getHeight(); //On recupere la hauteutr de l'ecran
-		
 
 		this.activity = context;
-		
-		
+
 		/** Initialisation des objets */
         this.buttonActualite  = new MainButton(context);
         this.buttonAgenda  = new MainButton(context);
         this.buttonNotes  = new MainButton(context);
-        this.buttonOptions  = new MainButton(context);
+        this.buttonContact  = new MainButton(context);
         this.buttonQuitter  = new MainButton(context);
 		this.layout = new LinearLayout (context);
 		this.scrollParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.MATCH_PARENT);
@@ -61,14 +60,14 @@ public class MainLayout extends ScrollView implements OnClickListener {
 		this.buttonActualite.setText("Actualités");
 		this.buttonAgenda.setText("Agenda");
 		this.buttonNotes.setText("Mes notes");
-		this.buttonOptions.setText("Options");
+		this.buttonContact.setText("Mes contacts");
 		this.buttonQuitter.setText("Quitter");
 		
 		// Taille des boutons
 		this.buttonActualite.setHeight(this.height / 6);
 		this.buttonAgenda.setHeight(this.height / 6);
 		this.buttonNotes.setHeight(this.height / 6);
-		this.buttonOptions.setHeight(this.height / 6);
+		this.buttonContact.setHeight(this.height / 6);
 		this.buttonQuitter.setHeight(this.height / 6);
 
 		
@@ -78,10 +77,11 @@ public class MainLayout extends ScrollView implements OnClickListener {
         this.layout.addView(this.buttonActualite);
         this.layout.addView(this.buttonAgenda);
         this.layout.addView(this.buttonNotes);
-        this.layout.addView(this.buttonOptions);
+        this.layout.addView(this.buttonContact);
         this.layout.addView(this.buttonQuitter);
 		
-		
+        
+        
 		/** Ajout du Layout au scrollview */
 		this.addView(layout);
 		
@@ -89,9 +89,10 @@ public class MainLayout extends ScrollView implements OnClickListener {
 		this.buttonActualite.setOnClickListener(this);
 		this.buttonQuitter.setOnClickListener(this);
 		this.buttonAgenda.setOnClickListener(this);
-		this.buttonOptions.setOnClickListener(this);
+		this.buttonContact.setOnClickListener(this);
 	}
 
+	/** Lorsqu'n click sur un composant de la vue */
 	@Override
 	public void onClick(View v) 
 	{
@@ -106,11 +107,13 @@ public class MainLayout extends ScrollView implements OnClickListener {
 			intent.setClass(getContext(), ActualiteActivity.class);
 			activity.startActivity(intent);
 		}
-		else if(v.equals(this.buttonAgenda))
+		else if(v.equals(this.buttonAgenda)) //On ouvre le calendrier
 		{
-			DialogCalendar.showRandomDialog(this.activity);
+			Intent intent = new Intent();
+			intent.setClass(getContext(), CalendarActivity.class);
+			activity.startActivity(intent);
 		}
-		else if(v.equals(this.buttonOptions))
+		else if(v.equals(this.buttonContact)) //Lorsqu'on click sur le bouton contact
 		{
 			Intent intent = new Intent();
 			intent.setClass(getContext(), OptionActivity.class);

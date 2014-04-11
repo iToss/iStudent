@@ -4,8 +4,6 @@ import java.util.Random;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -16,7 +14,6 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
-import fr.tingo.istudent.eleve.Instance;
 import fr.tingo.istudent.util.Date;
 
 public class Main extends Activity {
@@ -30,12 +27,14 @@ public class Main extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		
+		
 		final MainLayout layout = new MainLayout(this); //On instancie le layout qui sera affiché à la fin de l'animation
 		final TextView textView; // "iStudent, conneting people...
 		
 		textView = new TextView(this); // On instancie le nouveau textview
 		textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL); //On le centre
 		textView.setText("iStudent, connecting people..."); //On definit son message
+		
 		Animation anim = AnimationUtils.loadAnimation(this, R.anim.main); // On charge une animation
 		anim.setAnimationListener(new AnimationListener() {
 

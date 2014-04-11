@@ -8,8 +8,7 @@ import android.view.Menu;
 import fr.tingo.istudent.R;
 
 public class ActualiteActivity extends Activity {
-	
-	
+
 
 	@SuppressLint("NewApi")
 	@Override
@@ -20,7 +19,8 @@ public class ActualiteActivity extends Activity {
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 		
-		ActualiteLayout layout = new ActualiteLayout(this);
+		/** Création et ajout du nouveau layout */		
+		ActualiteScrollView layout = new ActualiteScrollView(this);
 		this.setContentView(layout);
 	}
 	

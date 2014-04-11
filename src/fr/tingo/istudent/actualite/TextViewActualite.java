@@ -18,13 +18,12 @@ public class TextViewActualite extends TextView {
 
 	
 	@SuppressLint("NewApi")
-	public TextViewActualite(Context context, String[] actualites) {
+	public TextViewActualite(Context context, String actualite) {
 		super(context);
 		this.setGravity(Gravity.CENTER);
 		this.setTextSize(16.0f);
-		
-		String str =  actualites[1] + "<br></br><br></br>" + "<u>" + actualites[0] + "</u>" + "<br></br>";
-		this.setText(Html.fromHtml(str));
+
+		this.setText(Html.fromHtml(actualite)); //On transcrit le text de l'html pour la mis en forme
 	}
 
 	

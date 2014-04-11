@@ -64,7 +64,7 @@ public class OptionLayout extends ScrollView implements OnClickListener {
 		
 		/** Ajout du titre */
 		TextView title = new TextView(context);
-		SpannableString content = new SpannableString("\n" + "Options" + "\n");
+		SpannableString content = new SpannableString("\n" + "Ajouter" + "\n");
 		content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
 		title.setText(content);
 		title.setTextSize(24.0f);
@@ -80,7 +80,14 @@ public class OptionLayout extends ScrollView implements OnClickListener {
 
 		this.editTextAdd = new EditText(context);
 		this.editTextAdd.setHint("Identifiant");
+		this.editTextAdd.setOnClickListener(this);
 		this.layout.addView(this.editTextAdd);
+		
+		// Ajout de la liste deroulante des matieres
+		Spinner matiere = new Spinner(context);
+		List<String> list = Sauvegarde.loadListString("contacts", this.activity);
+	    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, list);
+	    matiere.setAdapter(spinnerArrayAdapter);		
 		
 		// Ajout du bouton d'ajout de follow
 		this.buttonAdd = new MainButton(context);
@@ -88,6 +95,15 @@ public class OptionLayout extends ScrollView implements OnClickListener {
 		this.buttonAdd.setOnClickListener(this);
 		this.layout.addView(this.buttonAdd);
 		
+		
+		//Ajout du titre "Supprimer"
+		TextView supprimer = new TextView(context);
+		content = new SpannableString("\n\n" + "Supprimer" + "\n");
+		content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+		supprimer.setText(content);
+		supprimer.setTextSize(24.0f);
+		supprimer.setGravity(Gravity.CENTER);
+		this.layout.addView(supprimer);
 
 		// Ajout de la liste deroulante
 		this.spinner = new Spinner(context);
@@ -105,14 +121,12 @@ public class OptionLayout extends ScrollView implements OnClickListener {
 		/** Ajout du Layout au scrollview */
 		this.addView(layout);
 		
-		this.editTextAdd.setFocusable(true);
-		this.editTextAdd.setFocusableInTouchMode(true);
 	}
 
 	@Override
 	public void onClick(View v) 
 	{
-		if(v.equals(this.buttonAdd))
+		if(v.equals(this.buttonAdd)) //Lorsqu'on clique sur le bouton ajouter un contact
 		{
 			if(this.editTextAdd.length() == 0)
 			{
@@ -126,7 +140,7 @@ public class OptionLayout extends ScrollView implements OnClickListener {
 				this.setSpinerChoices();
 			}
 		}
-		else if(v.equals(this.buttonRemove))
+		if(v.equals(this.buttonRemove))
 		{			
 			Object choice = this.spinner.getSelectedItem(); // On recupere l'objet selectionné
 			
@@ -148,6 +162,7 @@ public class OptionLayout extends ScrollView implements OnClickListener {
 	    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, list);
 	    this.spinner.setAdapter(spinnerArrayAdapter);
 	}
+
 
    
 

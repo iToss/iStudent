@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -30,13 +31,34 @@ public class Sauvegarde {
 		editor.commit();
 	}
 	
+	/** Recupere une matiere */
+	public static Matiere loadMatiere(String id, Context context)
+	{
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context); // On recupere les SharedPreferences
+		preferences = PreferenceManager.getDefaultSharedPreferences(context); // On recupere les SharedPreferences
+		//TODO
+		return null;
+	}
+	
+	
+	/** Sauvegarde une matiere */
+	public static void saveMatiere(Matiere matiere, String id, Context context)
+	{
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context); // On recupere les SharedPreferences
+		SharedPreferences.Editor editor = preferences.edit(); // On recupere l'edit des SharedPreferences
+
+		//TODO
+		
+		editor.commit();
+	}
+	
 	
 	/** Recuperes une String enregistré dans les SharedPreferences (mémoire morte du téléphone) */
-	public static List<String> loadListString(String id, Activity activity)
+	public static List<String> loadListString(String id, Context context)
 	{
 		List<String> list = new ArrayList<String>();
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity); // On recupere les SharedPreferences
-		preferences = PreferenceManager.getDefaultSharedPreferences(activity); // On recupere les SharedPreferences
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context); // On recupere les SharedPreferences
+		preferences = PreferenceManager.getDefaultSharedPreferences(context); // On recupere les SharedPreferences
 		
 		int maxStr = preferences.getInt("int_" + id, 0);
 
