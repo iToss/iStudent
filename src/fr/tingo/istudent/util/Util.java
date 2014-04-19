@@ -1,7 +1,9 @@
 package fr.tingo.istudent.util;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.util.Log;
+import android.view.WindowManager;
 
 
 
@@ -31,6 +33,13 @@ public class Util {
 	public static void LogDanger(String info, String message)
 	{
 		Log.println(android.util.Log.WARN, "[" + info.toUpperCase() + "]", message);
+	}
+
+
+	/** Supprimes tous les focus */
+	public static void resetFocus(Activity activity) 
+	{
+		activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);		
 	}
 	
 

@@ -1,4 +1,4 @@
-package fr.tingo.calendrier;
+package fr.tingo.istudent.calendrier;
 
 import java.util.Random;
 
@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ScrollView;
@@ -51,12 +50,13 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	{
 		super.onCreate(savedInstanceState);
 
-
+		/** Background */
 		this.setWidth(this.getWindowManager().getDefaultDisplay().getWidth()); //On recupere la largeur de l'ecran
 		this.setHeight(this.getWindowManager().getDefaultDisplay().getHeight()); //On recupere la hauteutr de l'ecran
 		this.setuWidth(getWidth() / 100); // On crée des unités de mesures
 		this.setuHeight(this.getHeight() / 100); 
 		this.init(); // On execute la méthode "init";
+		
 	}
 	
 	@SuppressWarnings("deprecation")

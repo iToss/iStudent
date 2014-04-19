@@ -1,4 +1,4 @@
-package fr.tingo.istudent.actualite;
+package fr.tingo.istudent.social.actualite;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -3,12 +3,10 @@ package fr.tingo.istudent;
 import java.util.Random;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -18,15 +16,12 @@ import fr.tingo.istudent.util.Date;
 
 public class Main extends Activity {
 
-
 	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		
-		
 		
 		final MainLayout layout = new MainLayout(this); //On instancie le layout qui sera affiché à la fin de l'animation
 		final TextView textView; // "iStudent, conneting people...
@@ -53,22 +48,12 @@ public class Main extends Activity {
 			
 		});
 		
-		textView.setOnClickListener(new OnClickListener()
-		{
-			/** Lorsqu'on clique sur le textview de départ */
-			@Override
-			public void onClick(View v) 
-			{
-				setContentView(layout); // On définit le contenu de la vue par le menu princiapal
-			}
-			
-		});
 		textView.setAnimation(anim); //On ajoute l'animation au textview
 		this.addContentView(textView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT)); // On ajoute le text à la vue
+	
 	}
 
-	
-
+    
 	/** Appelé lorsque le bouton back du téléphone (hardware) est pressé */
     public void onBackPressed() 
     {

@@ -1,128 +1,109 @@
-package fr.tingo.istudent.options;
+package fr.tingo.istudent.social;
 
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.text.Html;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.FrameLayout.LayoutParams;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import fr.tingo.istudent.MainButton;
-import fr.tingo.istudent.actualite.TextViewActualite;
 import fr.tingo.istudent.util.Sauvegarde;
+import fr.tingo.istudent.util.Util;
 
-public class OptionLayout extends ScrollView implements OnClickListener {
-		
+public class DialogContact extends Dialog implements OnClickListener {
+
 	public LinearLayout layout;
 
 	public MainButton buttonAdd;
 	public MainButton buttonRemove;
 	public EditText editTextAdd;
-	public Spinner spinner;
-
-
-	public LinearLayout.LayoutParams scrollParams;
-	public Activity activity;
-
+	public Spinner spinnerContact;
 	
-	public OptionLayout(Context context) {
+	public LinearLayout.LayoutParams layoutParams;
+	public Activity activity;
+	
+	
+	public DialogContact(Context context) 
+	{
 		super(context);
 	}
-	
-	@SuppressWarnings("deprecation")
-	@SuppressLint({ "ResourceAsColor", "NewApi" })
-	public OptionLayout(Activity context) {
-		super(context);
-		
-		this.activity = context;
 
+	
+	@SuppressLint("ResourceAsColor")
+	public DialogContact(Activity a) 
+	{
+		super(a);
+		this.activity = a;
+		
+		this.setTitle(Html.fromHtml("<strong><u><font color=\"DeepSkyBlue\">  Contacts </font></strong></u>"));
 		
 		/** Initialisation des objets */
-		this.layout = new LinearLayout (context);
-		this.scrollParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.MATCH_PARENT);
+		this.layout = new LinearLayout (a);
+		this.layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.MATCH_PARENT);
 
 		/** configuration scrollview */
-		this.setLayoutParams(scrollParams);
-		this.setBackgroundColor(android.R.color.transparent);
-		this.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-        this.setFillViewport(true);
-		this.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+		this.layout.setLayoutParams(layoutParams);
+		this.layout.setBackgroundColor(android.R.color.transparent);
 
 		/** configuration du layout */
 		this.layout.setOrientation(LinearLayout.VERTICAL);
 		
-		/** Ajout du titre */
-		TextView title = new TextView(context);
-		SpannableString content = new SpannableString("\n" + "Ajouter" + "\n");
-		content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-		title.setText(content);
-		title.setTextSize(24.0f);
-		title.setGravity(Gravity.CENTER);
-		this.layout.addView(title);
 		
+		/** Ajout du titre */
 
-		TextViewActualite info = new TextViewActualite(context);
-		info.setPadding(100, 0, 100, 0);
-		info.setGravity(Gravity.CENTER);
-		info.setText("\n Ajouter ou supprimer des contacts à votre liste pour vous synchroniser ou non avec eux. \n");
-		this.layout.addView(info);
-
-		this.editTextAdd = new EditText(context);
+		this.editTextAdd = new EditText(a);
 		this.editTextAdd.setHint("Identifiant");
 		this.editTextAdd.setOnClickListener(this);
 		this.layout.addView(this.editTextAdd);
 		
-		// Ajout de la liste deroulante des matieres
-		Spinner matiere = new Spinner(context);
-		List<String> list = Sauvegarde.loadListString("contacts", this.activity);
-	    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, list);
-	    matiere.setAdapter(spinnerArrayAdapter);		
-		
 		// Ajout du bouton d'ajout de follow
-		this.buttonAdd = new MainButton(context);
-		this.buttonAdd.setText("Ajouter");
+		this.buttonAdd = new MainButton(a);
+		this.buttonAdd.setText(Html.fromHtml("<u> Ajouter </u>"));
+		this.buttonAdd.setTextSize(18.0f);
 		this.buttonAdd.setOnClickListener(this);
 		this.layout.addView(this.buttonAdd);
 		
-		
-		//Ajout du titre "Supprimer"
-		TextView supprimer = new TextView(context);
-		content = new SpannableString("\n\n" + "Supprimer" + "\n");
-		content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-		supprimer.setText(content);
-		supprimer.setTextSize(24.0f);
-		supprimer.setGravity(Gravity.CENTER);
-		this.layout.addView(supprimer);
 
+		// Space
+		TextView space = new TextView(a);
+		space.setText(Html.fromHtml("<br></br>"));
+		this.layout.addView(space);
+		
+		
 		// Ajout de la liste deroulante
-		this.spinner = new Spinner(context);
+		this.spinnerContact = new Spinner(a);
 		this.setSpinerChoices(); // Ajout des choix à la liste déroulante
 
-	    this.layout.addView(spinner);
+	    this.layout.addView(spinnerContact);
 
 	    // Ajout du bouton supprimer
-		this.buttonRemove = new MainButton(context);
-		this.buttonRemove.setText("Supprimer");
+		this.buttonRemove = new MainButton(a);
+		this.buttonRemove.setText(Html.fromHtml("<u> Supprimer </u>"));
+		this.buttonRemove.setTextSize(18.0f);
 		this.buttonRemove.setOnClickListener(this);
-		layout.addView(this.buttonRemove);
+		this.layout.addView(this.buttonRemove);
+		
+
 		
 		
 		/** Ajout du Layout au scrollview */
-		this.addView(layout);
+		this.setContentView(layout);
+		
+		Util.resetFocus(activity);
 		
 	}
-
+	
+	
 	@Override
 	public void onClick(View v) 
 	{
@@ -142,7 +123,7 @@ public class OptionLayout extends ScrollView implements OnClickListener {
 		}
 		if(v.equals(this.buttonRemove))
 		{			
-			Object choice = this.spinner.getSelectedItem(); // On recupere l'objet selectionné
+			Object choice = this.spinnerContact.getSelectedItem(); // On recupere l'objet selectionné
 			
 			if(choice != null) // si l'object existe, alors ...
 			{
@@ -150,6 +131,10 @@ public class OptionLayout extends ScrollView implements OnClickListener {
 						+ " </u> </strong> a été supprimer de votre liste de contacts."), Toast.LENGTH_LONG).show(); // On affiche que le contact a bien été supprimé
 				Sauvegarde.removeStringFromList("contacts", choice.toString(), this.activity); // On supprime le contact de la liste
 				this.setSpinerChoices(); // On redefinit les choix de la liste déroulante
+			}
+			else
+			{
+				Toast.makeText(this.getContext(), "Aucuns contacts disponibles.", Toast.LENGTH_LONG).show(); // On affiche que le contact a bien été supprimé
 			}
 		}
 	}
@@ -160,10 +145,6 @@ public class OptionLayout extends ScrollView implements OnClickListener {
 	{
 		List<String> list = Sauvegarde.loadListString("contacts", this.activity);
 	    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, list);
-	    this.spinner.setAdapter(spinnerArrayAdapter);
+	    this.spinnerContact.setAdapter(spinnerArrayAdapter);
 	}
-
-
-   
-
 }

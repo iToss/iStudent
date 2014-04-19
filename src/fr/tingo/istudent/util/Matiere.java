@@ -7,13 +7,11 @@ import java.util.List;
 public class Matiere {
 	
 	public List<Float[]> notes = new ArrayList<Float[]>();
-	public String filiere;
 	public float coef;
 	public String matiere;
 	
-	public Matiere(String n_filiere, float n_coef, String n_matiere) 
+	public Matiere(String n_matiere, float n_coef) 
 	{
-		this.filiere = n_filiere;
 		this.coef = n_coef;
 		this.matiere = n_matiere;
 		
