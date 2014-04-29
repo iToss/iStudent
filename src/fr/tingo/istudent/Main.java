@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Gravity;
+<<<<<<< HEAD
 import android.view.ViewGroup.LayoutParams;
+=======
+>>>>>>> 23d807182476563cc71813bc9b64abd23f8c40fb
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -19,7 +23,6 @@ import fr.tingo.istudent.util.Date;
 import fr.tingo.istudent.util.Sauvegarde;
 
 public class Main extends Activity {
-
 
 	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")
@@ -57,12 +60,16 @@ public class Main extends Activity {
 			public void onAnimationRepeat(Animation animation) {}
 			
 		});
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 23d807182476563cc71813bc9b64abd23f8c40fb
 		textView.setAnimation(anim); //On ajoute l'animation au textview
 		this.addContentView(textView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT)); // On ajoute le text à la vue
+	
 	}
 
-	
-
+    
 	/** Appelé lorsque le bouton back du téléphone (hardware) est pressé */
     public void onBackPressed() 
     {
