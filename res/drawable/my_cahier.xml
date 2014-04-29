@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><selector xmlns:android="http://schemas.android.com/apk/res/android" >    <item android:drawable="@drawable/cahier_pressed" android:state_pressed="true"/>    <item android:drawable="@drawable/cahier_off" android:state_enabled="false"/>    <item android:drawable="@drawable/cahier_unpressed"/></selector>

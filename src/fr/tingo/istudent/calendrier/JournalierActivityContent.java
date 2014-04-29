@@ -1,10 +1,9 @@
-package fr.tingo.calendrier;
+package fr.tingo.istudent.calendrier;
 
 import java.util.Random;
 
 import android.annotation.SuppressLint;
 import android.graphics.Typeface;
-import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;

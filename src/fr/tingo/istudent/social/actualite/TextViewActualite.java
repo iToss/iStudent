@@ -1,4 +1,4 @@
-package fr.tingo.istudent.actualite;
+package fr.tingo.istudent.social.actualite;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

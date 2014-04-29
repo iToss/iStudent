@@ -1,4 +1,4 @@
-package fr.tingo.calendrier;
+package fr.tingo.istudent.calendrier;
 
 import java.util.Random;
 
@@ -11,11 +11,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ScrollView;
-import android.widget.Toast;
 import fr.tingo.istudent.R;
 import fr.tingo.istudent.util.Date;
 
@@ -198,36 +196,6 @@ public class CalendarActivity extends Activity implements OnClickListener {
 			this.layout.addView(view);
 		}
 	}
-
-	/** Appelé lorsque le bouton back du téléphone (hardware) est pressé */
-    public void onBackPressed() 
-    {
-    	super.onBackPressed();
-    	
-    	Toast.makeText(this, this.randomMessage(), Toast.LENGTH_LONG).show(); // On affiche un Toast (pop - up) avec un message aléatoire
-    }
-    
-    
-    /** Texte aléatoire lorsque l'utilisateur quitte l'application */
-    public String randomMessage() // Retourne un message aléatoire
-    {
-    	String message = new String();
-    	
-    	switch(this.rand.nextInt(3))
-    	{
-    		case 0: message = "Merci d'avoir utilisé l'application, bonne journée.";
-    		break;
-    		
-    		case 1: message = "Et n'oublie pas de faire tes devoirs!";
-    		break;
-    		
-    		case 2: message = "Travailles bien! ;)";
-    		break;
-
-    	}
-    	
-    	return message;
-    }
 
 
 	public ActivityContent getActivityContent() {

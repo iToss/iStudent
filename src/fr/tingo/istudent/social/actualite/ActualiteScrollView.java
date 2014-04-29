@@ -1,4 +1,4 @@
-package fr.tingo.istudent.actualite;
+package fr.tingo.istudent.social.actualite;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -69,12 +69,14 @@ public class ActualiteScrollView extends ScrollView {
 		
 		/** On demarre le thread des recuperations d'actualités */
 		List<String> pseudos = Sauvegarde.loadListString("contacts", getContext()); //On recupere les pseudos des gens que l'leve follow
+		List<String> classes = Sauvegarde.loadListString("contacts_classe", getContext()); //On recupere la classe des gens que l'eleve follow
+
 		String urlMessage = "http://grillecube.fr/iStudent/actualite/script_getMessages.php?";
 		String actualite = new String(); //String contenant l'actualité
 		
 		for(int i = 0; i < pseudos.size(); i++)
 		{
-			urlMessage += "pseudo" + i + "=" + pseudos.get(i) + "&";
+			urlMessage += "pseudo" + i + "=" + pseudos.get(i) + "&" + "classe" + i + "=" + classes.get(i) + "&";
 		}
 		
 		urlMessage = urlMessage.substring(0, urlMessage.length() - 1); //On retire le & en trop

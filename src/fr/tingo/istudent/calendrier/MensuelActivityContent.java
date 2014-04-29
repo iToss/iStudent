@@ -1,4 +1,4 @@
-package fr.tingo.calendrier;
+package fr.tingo.istudent.calendrier;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;

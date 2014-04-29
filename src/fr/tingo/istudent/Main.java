@@ -1,20 +1,22 @@
 package fr.tingo.istudent;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import fr.tingo.istudent.util.Date;
+import fr.tingo.istudent.util.Sauvegarde;
 
 public class Main extends Activity {
 
@@ -26,11 +28,14 @@ public class Main extends Activity {
 	{
 		super.onCreate(savedInstanceState);
 		
-		
-		
 		final MainLayout layout = new MainLayout(this); //On instancie le layout qui sera affiché à la fin de l'animation
 		final TextView textView; // "iStudent, conneting people...
 		
+		ImageView image = new ImageView(this);
+		image.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+		image.setImageResource(R.drawable.student);
+		this.addContentView(image, image.getLayoutParams());
+		  
 		textView = new TextView(this); // On instancie le nouveau textview
 		textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL); //On le centre
 		textView.setText("iStudent, connecting people..."); //On definit son message
@@ -50,17 +55,6 @@ public class Main extends Activity {
 
 			@Override
 			public void onAnimationRepeat(Animation animation) {}
-			
-		});
-		
-		textView.setOnClickListener(new OnClickListener()
-		{
-			/** Lorsqu'on clique sur le textview de départ */
-			@Override
-			public void onClick(View v) 
-			{
-				setContentView(layout); // On définit le contenu de la vue par le menu princiapal
-			}
 			
 		});
 		textView.setAnimation(anim); //On ajoute l'animation au textview
