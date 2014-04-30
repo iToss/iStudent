@@ -40,8 +40,7 @@ public class Blague
 		new Blague(EnumBlague.Contrepetrie, "Le doigt dans le trou du fût, la main entre les Caisses. \n\nLe doigt dans le trou du cul, la main entre les fesses.", ""),
 		new Blague(EnumBlague.Contrepetrie, "Présente éléctions, \nPlaisantes éréctions", ""),
 		new Blague(EnumBlague.Contrepetrie, "A la boutique des Milles Bottes, on solde des tennis de pro \n \nA la boutique des belles mottes, on solde des pénis de trop.", ""),
-		new Blague(EnumBlague.Contrepetrie, "Adélaïde rue de La Paix. \n \nAdélaïde pue de la raie.", "")
-		
+		new Blague(EnumBlague.Contrepetrie, "Adélaïde rue de La Paix.\n\nAdélaïde pue de la raie.", "")	
 	};
 	
 	
