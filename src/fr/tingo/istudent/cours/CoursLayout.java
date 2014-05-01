@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import fr.tingo.istudent.MainLayout;
 import fr.tingo.istudent.util.Sauvegarde;
-import fr.tingo.istudent.util.Util;
 
 public class CoursLayout extends RelativeLayout implements View.OnClickListener
 {

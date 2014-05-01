@@ -1,9 +1,9 @@
 package fr.tingo.istudent.cours;
 
-import android.app.Activity;
 import android.os.Bundle;
+import fr.tingo.istudent.ActivityStudent;
 
-public class CoursActivity extends Activity
+public class CoursActivity extends ActivityStudent
 {
 	public CoursLayout layout;
 

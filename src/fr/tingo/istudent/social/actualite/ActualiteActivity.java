@@ -1,13 +1,11 @@
 package fr.tingo.istudent.social.actualite;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.view.Menu;
-import fr.tingo.istudent.R;
+import fr.tingo.istudent.ActivityStudent;
 
-public class ActualiteActivity extends Activity {
+public class ActualiteActivity extends ActivityStudent {
 
 
 	@SuppressLint("NewApi")
@@ -23,16 +21,6 @@ public class ActualiteActivity extends Activity {
 		ActualiteScrollView layout = new ActualiteScrollView(this);
 		this.setContentView(layout);
 	}
-	
-	
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) 
-	{
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
 
 
 

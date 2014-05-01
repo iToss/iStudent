@@ -3,7 +3,6 @@ package fr.tingo.istudent.calendrier;
 import java.util.Random;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,10 +13,11 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ScrollView;
+import fr.tingo.istudent.ActivityStudent;
 import fr.tingo.istudent.R;
 import fr.tingo.istudent.util.Date;
 
-public class CalendarActivity extends Activity implements OnClickListener {
+public class CalendarActivity extends ActivityStudent implements OnClickListener {
 
 	public Random rand = new Random();
 	
@@ -43,6 +43,7 @@ public class CalendarActivity extends Activity implements OnClickListener {
 	 * BaseActivity est l'activity de Base, qui affiche les options "Année, Mois, Jour" en haut de la fenetre
 	 * 
 	 */
+	@SuppressLint("NewApi")
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 

@@ -1,13 +1,14 @@
 package fr.tingo.istudent.social;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import fr.tingo.istudent.ActivityStudent;
 
-<<<<<<< HEAD
-public class SocialActivity extends Activity
+public class SocialActivity extends ActivityStudent
 {
 	public SocialLayout socialLayout;
 
+	@SuppressLint("NewApi")
 	public void onCreate(Bundle paramBundle)
 	{
 		super.onCreate(paramBundle);
@@ -15,19 +16,5 @@ public class SocialActivity extends Activity
     	this.socialLayout = new SocialLayout(this);
     	setContentView(this.socialLayout);
 	}
-=======
-public class SocialActivity extends Activity {
-	
-	public SocialLayout socialLayout;
-	
-	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		
-		this.socialLayout = new SocialLayout(this);
-		this.setContentView(this.socialLayout);
-	}
 
->>>>>>> 23d807182476563cc71813bc9b64abd23f8c40fb
 }

@@ -69,7 +69,7 @@ public class ActualiteScrollView extends ScrollView {
 		
 		/** On demarre le thread des recuperations d'actualités */
 		List<String> pseudos = Sauvegarde.loadListString("contacts", getContext()); //On recupere les pseudos des gens que l'leve follow
-		List<String> classes = Sauvegarde.loadListString("contacts_classe", getContext()); //On recupere la classe des gens que l'eleve follow
+		List<String> classes = Sauvegarde.loadListString("classes", getContext()); //On recupere la classe des gens que l'eleve follow
 
 		String urlMessage = "http://grillecube.fr/iStudent/actualite/script_getMessages.php?";
 		String actualite = new String(); //String contenant l'actualité
