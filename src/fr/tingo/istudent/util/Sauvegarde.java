@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import fr.tingo.istudent.cours.CahierButton;
 import fr.tingo.istudent.cours.CoursActivity;
 import fr.tingo.istudent.eleve.Matiere;
 
@@ -14,6 +15,44 @@ public class Sauvegarde {
 	
 	public static final String DEFAULT_DEVOIRS = ""; // Le texte par defaut des devoirs
 
+	
+	
+	/** Charges une liste de cahier */
+	public static List<CahierButton> loadListCahier(String id, CoursActivity ac) 
+	{
+		List<CahierButton> list = new ArrayList<CahierButton>();
+		
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ac); // On recupere les SharedPreferences
+		preferences = PreferenceManager.getDefaultSharedPreferences(ac); // On recupere les SharedPreferences
+		
+		for(int i = 0; i < preferences.getInt("length_" + id, 0); i++)
+		{
+			list.add(new CahierButton(ac, preferences.getString("cahier_" + id + i, "none"), preferences.getInt("cahier_color_" + id + i, 0)));
+		}
+				
+		return list;
+	}
+	
+	/** Enregistres une liste de cahier */
+	public static void saveListCahier(List<CahierButton> list, String id, Context ac) 
+	{
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ac); // On recupere les SharedPreferences
+		SharedPreferences.Editor editor = preferences.edit(); // On recupere l'edit des SharedPreferences
+
+		editor.putInt("length_" + id, list.size());
+		
+		for(int i = 0; i < list.size(); i++)
+		{
+			editor.putString("cahier_" + id + i, list.get(i).name);
+			editor.putInt("cahier_color_" + id + i, list.get(i).color);
+		}
+
+		editor.commit();
+	}
+	
+
+	
+	
 	
 	
 	
@@ -182,7 +221,7 @@ public class Sauvegarde {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context); // On recupere les SharedPreferences
 		preferences = PreferenceManager.getDefaultSharedPreferences(context); // On recupere les SharedPreferences
 		
-		int maxStr = preferences.getInt("int_" + id, 0);
+		int maxStr = preferences.getInt("str_" + id, 0);
 
 		for(int i = 0; i < maxStr; i++)
 		{
@@ -199,7 +238,7 @@ public class Sauvegarde {
 		SharedPreferences.Editor editor = preferences.edit(); // On recupere l'edit des SharedPreferences
 		
 		int size = list.size();
-		editor.putInt("int_" + id, size);
+		editor.putInt("str_" + id, size);
 		
 		for(int i = 0; i < size; i++)
 		{
@@ -215,9 +254,9 @@ public class Sauvegarde {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c); // On recupere les SharedPreferences
 		SharedPreferences.Editor editor = preferences.edit(); // On recupere l'edit des SharedPreferences
 		
-		int maxStr = preferences.getInt("int_" + id, 0) + 1;
-		
-		editor.putInt("int_" + id, maxStr);
+		int maxStr = preferences.getInt("str_" + id, 0) + 1;
+
+		editor.putInt("str_" + id, maxStr);
 		editor.putString(id + maxStr, str);
 		
 		editor.commit();
@@ -307,6 +346,10 @@ public class Sauvegarde {
 		preferences = PreferenceManager.getDefaultSharedPreferences(activity); // On recupere les SharedPreferences
 		return preferences.getFloat(id, errorFloat);
 	}
+
+
+
+
 
 
 

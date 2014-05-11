@@ -10,9 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import fr.tingo.istudent.ActivityStudent;
-import fr.tingo.istudent.EditTextStudent;
 import fr.tingo.istudent.MainLayout;
 import fr.tingo.istudent.util.Sauvegarde;
+import fr.tingo.istudent.view.EditTextStudent;
 
 public class CahierActivity extends ActivityStudent implements View.OnClickListener, View.OnLongClickListener
 {

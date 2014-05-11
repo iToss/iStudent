@@ -1,8 +1,9 @@
-package fr.tingo.istudent;
+package fr.tingo.istudent.view;
 
 import android.content.Context;
 import android.view.Gravity;
 import android.widget.Button;
+import fr.tingo.istudent.R;
 
 public class ButtonStudent extends Button {
 	
@@ -11,6 +12,7 @@ public class ButtonStudent extends Button {
 	public int height;
 	public int color[];
 	
+	/** Class de bouton personnalisé */
 	public ButtonStudent(Context context) {
 		super(context);
 		this.setGravity(Gravity.CENTER);

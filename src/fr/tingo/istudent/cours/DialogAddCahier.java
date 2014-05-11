@@ -1,5 +1,6 @@
 package fr.tingo.istudent.cours;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -17,9 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import fr.tingo.istudent.ButtonStudent;
 import fr.tingo.istudent.util.Sauvegarde;
 import fr.tingo.istudent.util.Util;
+import fr.tingo.istudent.view.ButtonStudent;
 
 public class DialogAddCahier extends Dialog implements View.OnClickListener
 {
@@ -81,8 +82,15 @@ public class DialogAddCahier extends Dialog implements View.OnClickListener
 	/** Redefinis le choix de la liste deroulante des cahiers */
 	private void setSpinerChoices()
 	{
-		List<String> list = Sauvegarde.loadListString("cahiers", this.activity);
-	    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, list);
+		List<CahierButton> list = Sauvegarde.loadListCahier("cahiers", this.activity);
+		List<String> list_nom_cahier = new ArrayList<String>();
+		
+		for(int i = 0; i < list.size(); i++)
+		{
+			list_nom_cahier.add(list.get(i).name);
+		}
+		
+	    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, list_nom_cahier);
 		this.spinnerCahier.setAdapter(spinnerArrayAdapter);
 	}
 
@@ -99,14 +107,21 @@ public class DialogAddCahier extends Dialog implements View.OnClickListener
 			else //Sinon, on ajout ele cahier
 			{
 			      Toast.makeText(getContext(), Html.fromHtml("Vous avez ajouté un nouveau cahier: <strong> <u>" + cahier_name + "</u> </strong>"), Toast.LENGTH_LONG).show();
-			      this.activity.layout.addCahier(this.editTextAdd.getText().toString());
+			      this.activity.layout.addCahier(new CahierButton(this.getContext(), this.editTextAdd.getText().toString(), Util.getRandomColor()));
 			      this.onBackPressed();
 			}
 		}
 		else if (paramView.equals(this.buttonRemove)) //Si on supprime un cahier
 		{
-			DialogRemoveCahier d = new DialogRemoveCahier();
-			d.init(this);
+			if(this.spinnerCahier.getItemAtPosition(0) != null)
+			{
+				DialogRemoveCahier d = new DialogRemoveCahier();
+				d.init(this);
+			}
+			else
+			{
+				Toast.makeText(getContext(), Html.fromHtml("Vous n'avez pas de cahiers pour le moment."), Toast.LENGTH_LONG).show();
+			}
 		}
     }
 

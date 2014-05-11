@@ -9,8 +9,6 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.tingo.istudent.util.Sauvegarde;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -21,6 +19,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import fr.tingo.istudent.util.Sauvegarde;
 
 public class ActualiteScrollView extends ScrollView {
 	
@@ -68,19 +67,28 @@ public class ActualiteScrollView extends ScrollView {
 		
 		
 		/** On demarre le thread des recuperations d'actualités */
-		List<String> pseudos = Sauvegarde.loadListString("contacts", getContext()); //On recupere les pseudos des gens que l'leve follow
-		List<String> classes = Sauvegarde.loadListString("classes", getContext()); //On recupere la classe des gens que l'eleve follow
+		List<String> list_contacts = Sauvegarde.loadListString("contacts", getContext()); //On recupere la liste des contacts
+		int index = 0;
 
-		String urlMessage = "http://grillecube.fr/iStudent/actualite/script_getMessages.php?";
-		String actualite = new String(); //String contenant l'actualité
-		
-		for(int i = 0; i < pseudos.size(); i++)
+		String urlMessage = "http://grillecube.fr/iStudent/actualite/script_getMessages.php?"; //String contenant l'url
+		//L'url est sous la forme: ?pseudo0=rpereira&classe0=ts4&pseudo1=mboisgard&classe1=ts4 pour synchroniser toutes les listes
+		for(int i = 0; i < list_contacts.size(); i++)
 		{
-			urlMessage += "pseudo" + i + "=" + pseudos.get(i) + "&" + "classe" + i + "=" + classes.get(i) + "&";
+			while(list_contacts.get(i).charAt(index) != '|') //boucle While permettant de recuperer la classe et le pseudo contenu dans "rpereira | ts4"
+				index++;
+			
+			String pseudo = list_contacts.get(i).substring(0, index - 1);
+			String classe = list_contacts.get(i).substring(index + 2, list_contacts.get(i).length());
+			
+			index = 0; // On reinitialise l'index
+			
+			urlMessage += "pseudo" + i + "=" + pseudo + "&" + "classe" + i + "=" + classe + "&";
 		}
 		
 		urlMessage = urlMessage.substring(0, urlMessage.length() - 1); //On retire le & en trop
 
+		
+		String actualite = new String(); //String contenant l'actualité
 		try { //On essaye ...
 			URL urlMsg = new URL(urlMessage); //On recupere l'URL des messages
 			URLConnection urlConnectionMsg = urlMsg.openConnection(); //On ouvre la connection (on charge la page )

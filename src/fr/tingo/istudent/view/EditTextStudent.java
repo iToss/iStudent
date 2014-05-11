@@ -1,7 +1,9 @@
-package fr.tingo.istudent;
+package fr.tingo.istudent.view;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.tingo.istudent.MainLayout;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

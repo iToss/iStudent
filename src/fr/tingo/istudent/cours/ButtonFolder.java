@@ -1,9 +1,9 @@
 package fr.tingo.istudent.cours;
 
-import fr.tingo.istudent.R;
 import android.content.Context;
 import android.view.Gravity;
 import android.widget.Button;
+import fr.tingo.istudent.R;
 
 public class ButtonFolder extends Button
 {

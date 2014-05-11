@@ -7,11 +7,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import fr.tingo.istudent.ButtonStudent;
 import fr.tingo.istudent.MainLayout;
 import fr.tingo.istudent.R;
-import fr.tingo.istudent.bob.BobActivity;
 import fr.tingo.istudent.social.actualite.ActualiteActivity;
+import fr.tingo.istudent.view.ButtonStudent;
 
 public class SocialLayout extends RelativeLayout implements OnClickListener {
 
@@ -49,8 +48,8 @@ public class SocialLayout extends RelativeLayout implements OnClickListener {
 		this.buttonActualite.setX( MainLayout.width / 10);
 		this.buttonContact.setX( MainLayout.width / 10);
 		
-		this.buttonActualite.setY(MainLayout.height / 2 + 20);
-		this.buttonContact.setY(MainLayout.height / 2 + MainLayout.height / 8 + 40);
+		this.buttonActualite.setY(MainLayout.height / 2 + MainLayout.height / 32);
+		this.buttonContact.setY(MainLayout.height / 2 + MainLayout.height / 8 + MainLayout.height / 16);
 		
 		this.buttonActualite.setText("Actualités");
 		this.buttonContact.setText ("Mes contacts");

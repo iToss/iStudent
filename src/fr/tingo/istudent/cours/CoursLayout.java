@@ -17,9 +17,9 @@ public class CoursLayout extends RelativeLayout implements View.OnClickListener
 {
 	public CoursActivity activity;
 	public ButtonFolder button;
-	public CahierButton[] cahier;
-	public int nb_cahier;
-	public List<String> nom_cahier;
+	
+	public List<CahierButton> cahier;
+
 	
 	@SuppressLint({"NewApi"})
   	public CoursLayout(Context c)
@@ -44,8 +44,8 @@ public class CoursLayout extends RelativeLayout implements View.OnClickListener
 	    this.button.setOnClickListener(this);
 	    
 	    this.addView(this.button);
-	    this.nom_cahier = Sauvegarde.loadListString("cahiers", ac);
-	    this.nb_cahier = Sauvegarde.loadInt("nb_cahiers", 0, getContext());
+
+	    this.cahier = Sauvegarde.loadListCahier("cahiers", ac);
 	    
 	    this.drawCahier();
   	}
@@ -58,12 +58,10 @@ public class CoursLayout extends RelativeLayout implements View.OnClickListener
   	}
 
 	/** Ajoutes un cahier à la vue */
-	public void addCahier(String cahier_name)
+	public void addCahier(CahierButton p_cahier)
   	{
-	    Sauvegarde.saveInt("nb_cahiers", 1 + this.activity.layout.nb_cahier, getContext());
-	    Sauvegarde.addStringToList("cahiers", cahier_name, this.activity);
-	    this.nom_cahier.add(cahier_name);
-	    this.nb_cahier = (1 + this.nb_cahier);
+		this.cahier.add(p_cahier);
+		Sauvegarde.saveListCahier(this.cahier, "cahiers", getContext());
 	    drawCahier();
   	}
 
@@ -73,13 +71,12 @@ public class CoursLayout extends RelativeLayout implements View.OnClickListener
   	public void drawCahier()
   	{
 		this.removeEveryCahier();
-		this.cahier = new CahierButton[this.nb_cahier];
 		
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(MainLayout.width / 5, MainLayout.height / 6);
 		int x = MainLayout.width / 25;
 		int y = 0;
 		
-		for (int i = 0; i < this.nb_cahier; i++)
+		for (int i = 0; i < this.cahier.size(); i++)
 		{
 			if (i % 4 == 0)
 			{
@@ -87,16 +84,15 @@ public class CoursLayout extends RelativeLayout implements View.OnClickListener
 	        	y += MainLayout.height / 6 + MainLayout.height / 100;
 			}
 			
-			this.cahier[i] = new CahierButton(getContext(), this.nom_cahier.get(i));
-			this.cahier[i].setId(i);
-			this.cahier[i].setX(x);
-			this.cahier[i].setY(y);
-			this.cahier[i].setLayoutParams(layoutParams);
+			this.cahier.get(i).setId(i);
+			this.cahier.get(i).setX(x);
+			this.cahier.get(i).setY(y);
+			this.cahier.get(i).setLayoutParams(layoutParams);
 			
 			x += MainLayout.width / 25 + MainLayout.width / 5;
-			this.cahier[i].setOnClickListener(this);
+			this.cahier.get(i).setOnClickListener(this);
 			
-			addView(this.cahier[i]);
+			addView(this.cahier.get(i));
 	    }
   }
 
@@ -120,12 +116,8 @@ public class CoursLayout extends RelativeLayout implements View.OnClickListener
 	/** Supprimes le cahier au rang i*/
 	public void removeCahier(int i)
 	{		
-		Sauvegarde.saveInt(this.nom_cahier.get(i) + "_color", 0, this.getContext()); //Reset de la couleur du cahier
-
-	    Sauvegarde.saveInt("nb_cahiers", this.nb_cahier - 1, getContext());
-	    Sauvegarde.removeStringFromListById("cahiers", i, this.activity);
-	    this.nom_cahier.remove(this.nom_cahier.get(i));
-	    this.nb_cahier--;
+		this.cahier.remove(i);
+		Sauvegarde.saveListCahier(cahier, "cahiers", getContext());
 	    this.drawCahier();
 	}
 	

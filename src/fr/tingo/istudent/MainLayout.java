@@ -2,31 +2,35 @@ package fr.tingo.istudent;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Point;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
+import android.widget.TextView;
 import fr.tingo.istudent.calendrier.CalendarActivity;
 import fr.tingo.istudent.cours.CoursActivity;
 import fr.tingo.istudent.social.SocialActivity;
+import fr.tingo.istudent.util.Util;
 
 @SuppressLint({"ViewConstructor"})
-public class MainLayout extends ScrollView implements View.OnClickListener
+public class MainLayout extends RelativeLayout implements View.OnClickListener
 {
 	  public static int height;
 	  public static int width;
+	 
 	  public Activity activity;
-	  public ButtonStudent buttonAgenda;
-	  public ButtonStudent buttonEmploiDuTemps;
-	  public ButtonStudent buttonMesCours;
-	  public ButtonStudent buttonQuitter;
-	  public ButtonStudent buttonSocial;
-	  public RelativeLayout layout;
-	  public LinearLayout.LayoutParams scrollParams;
+	  public LinearLayout.LayoutParams layoutParam;
+	  
+	  public ButtonLogo buttonSocial;
+	  public ButtonLogo buttonAgenda;
+	  public ButtonLogo buttonMesCours;
+	  public ButtonLogo buttonMesNotes;
+	  public ButtonLogo buttonEmploiDuTemps;
+	  public ButtonLogo buttonQuitter;
 	
 	  @SuppressLint({"ResourceAsColor", "NewApi"})
 	  public MainLayout(Activity paramActivity)
@@ -41,97 +45,77 @@ public class MainLayout extends ScrollView implements View.OnClickListener
 		    height = localPoint.y;
 		    
 		    this.activity = paramActivity;
-		    this.buttonSocial = new ButtonStudent(paramActivity);
-		    this.buttonAgenda = new ButtonStudent(paramActivity);
-		    this.buttonMesCours = new ButtonStudent(paramActivity);
-		    this.buttonEmploiDuTemps = new ButtonStudent(paramActivity);
-		    this.buttonQuitter = new ButtonStudent(paramActivity);
+
+		    /** Titre */
+		    TextView title = new TextView(paramActivity);
+		    Spanned text = Html.fromHtml("<strong>iStudent</strong>");
+		    title.setText(text);
+		    title.setWidth(width);
+		    title.setTextSize(width / (text.length() * 2));
+		    title.setGravity(Gravity.CENTER);
+		    title.setHeight(height / 4);
 		    
-		    this.layout = new RelativeLayout(paramActivity);
-		    this.scrollParams = new LinearLayout.LayoutParams(-2, -1);
-		    this.setLayoutParams(this.scrollParams);
-		    this.setBackgroundColor(17170445);
-		    this.setLayoutParams(new FrameLayout.LayoutParams(-1, -1));
-		    this.setFillViewport(true);
-		    this.setScrollBarStyle(0);
 		    
-		    this.buttonSocial.setText("Social");
-		    this.buttonAgenda.setText("Agenda");
-		    this.buttonMesCours.setText("Mes cours");
-		    this.buttonEmploiDuTemps.setText("Emploi du temps");
-		    this.buttonQuitter.setText("Quitter");
+		    /** On prépare les variables pour placer les boutons en fonction de la résolution de l'écarn (en pixel) */
+		    int cote_bouton = width / 4; 
+		    int posX = width / 6;
+		    int posX2 = 2  * posX + cote_bouton;
+		    int posY = height / 4;
 		    
-		    int i = height / 8;
-		    this.buttonSocial.setHeight(i);
-		    this.buttonAgenda.setHeight(i);
-		    this.buttonMesCours.setHeight(i);
-		    this.buttonEmploiDuTemps.setHeight(i);
-		    this.buttonQuitter.setHeight(i);
 		    
-		    int j = 4 * (width / 5);
-		    this.buttonSocial.setWidth(j);
-		    this.buttonAgenda.setWidth(j);
-		    this.buttonMesCours.setWidth(j);
-		    this.buttonEmploiDuTemps.setWidth(j);
-		    this.buttonQuitter.setWidth(j);
+		    /** Bouton social */
+		    this.buttonSocial = new ButtonLogo(paramActivity, R.drawable.my_button_social, cote_bouton, posX, posY);
+		    this.buttonAgenda = new ButtonLogo(paramActivity, R.drawable.my_button_agenda, cote_bouton, posX2, posY);
 		    
-		    this.buttonSocial.setX(j / 8);
-		    this.buttonAgenda.setX(j / 8);
-		    this.buttonMesCours.setX(j / 8);
-		    this.buttonEmploiDuTemps.setX(j / 8);
-		    this.buttonQuitter.setX(j / 8);
+		    posY += cote_bouton + height / 16;
+		    this.buttonMesCours = new ButtonLogo(paramActivity, R.drawable.my_button_cours, cote_bouton, posX, posY);
+		    this.buttonMesNotes = new ButtonLogo(paramActivity, R.drawable.my_button_social, cote_bouton, posX2, posY);
 		    
-		    int k = i / 4;
-		    this.buttonSocial.setY(i / 2);
-		    this.buttonAgenda.setY(k + (i + i / 2));
-		    this.buttonMesCours.setY(i / 2 + 2 * (i + k));
-		    this.buttonEmploiDuTemps.setY(i / 2 + 3 * (i + k));
-		    this.buttonQuitter.setY(height - 2.5F * i);
+		    posY += cote_bouton + height / 16;
+		    this.buttonEmploiDuTemps = new ButtonLogo(paramActivity, R.drawable.my_button_timetable, cote_bouton, posX, posY);
+		    this.buttonQuitter = new ButtonLogo(paramActivity, R.drawable.my_button_social, cote_bouton, posX2, posY);
+
 		    
-		    this.layout.addView(this.buttonSocial);
-		    this.layout.addView(this.buttonAgenda);
-		    this.layout.addView(this.buttonMesCours);
-		    this.layout.addView(this.buttonEmploiDuTemps);
-		    this.layout.addView(this.buttonQuitter);
-		    this.addView(this.layout);
+		    /** On ajoute toutes les vues au layout */
+		    this.addView(title); //Ajout du titre
+		    this.addView(this.buttonSocial); //Du bouton social
+		    this.addView(this.buttonAgenda); //Du bouton agenda
+		    this.addView(this.buttonMesCours); //Du bouton mes Cours
+		    this.addView(this.buttonMesNotes); //Du bouton mes notes
+		    this.addView(this.buttonEmploiDuTemps); //Du bouton Emploi du temps
+		    this.addView(this.buttonQuitter); //Du bouton quitter
 		    
-		    this.buttonSocial.setOnClickListener(this);
+		    /** On prépare les écouteurs de clique sur les boutons */
+		    this.buttonSocial.setOnClickListener(this); //La méthode setOnClickListener prends comme paramètre cet objet (this), car cet objet implémente l'interface "OnClickListener" (cet objet est un Ecouteur de Click)
 		    this.buttonMesCours.setOnClickListener(this);
 		    this.buttonQuitter.setOnClickListener(this);
 		    this.buttonAgenda.setOnClickListener(this);
 		    this.buttonEmploiDuTemps.setOnClickListener(this);
 	  }
 	
+	  
+	  @Override //Sinon que l'on recupere la méthode d'une implementation ou d'une extension (ici de l'interface OnClickListener)
 	  public void onClick(View v)
 	  {
-		    if (v.equals(this.buttonQuitter))
-		    {
-		      this.activity.onBackPressed();
-		    }
-		    else if(v.equals(this.buttonSocial))
-		    {
-		        Intent intent = new Intent();
-		        intent.setClass(getContext(), SocialActivity.class);
-		        this.activity.startActivity(intent);
-		    }
-		    
-		    else if(v.equals(this.buttonAgenda))
-		    {
-		        Intent intent = new Intent();
-		        intent.setClass(getContext(), CalendarActivity.class);
-		        this.activity.startActivity(intent);
-		    }
-		    
-		    else if(v.equals(this.buttonEmploiDuTemps))
-		    {
+		  if(v.equals(this.buttonQuitter)) //Si on appuie sur le bouton quitter
+		  {
+			  this.activity.onBackPressed(); //On Simule l'appuie sur le bouton retour du telephone
+		  }
+		  else if(v.equals(this.buttonSocial)) //Si on appuie sur le bouton social
+		  {
+			  Util.startActivity(getContext(), SocialActivity.class); //Demarre une nouvelle activité
+		  }
+		  else if(v.equals(this.buttonAgenda))
+		  {
+			  Util.startActivity(getContext(), CalendarActivity.class); //Demarre une nouvelle activité
+		  }
+		  else if(v.equals(this.buttonEmploiDuTemps))
+		  {
 		    	//TODO emploi du temps
-		    }
-		    
-		    else if(v.equals(this.buttonMesCours))
-		    {
-			      Intent intent = new Intent();
-			      intent.setClass(getContext(), CoursActivity.class);
-			      this.activity.startActivity(intent);
-		    }
+		  }
+		  else if(v.equals(this.buttonMesCours))
+		  {
+			  Util.startActivity(getContext(), CoursActivity.class); //Demarre une nouvelle activité
+		  }
 	  }
 }

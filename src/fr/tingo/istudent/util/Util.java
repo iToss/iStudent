@@ -4,24 +4,44 @@ import java.util.Random;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.WindowManager;
 
 @SuppressLint({"DefaultLocale"})
 public class Util
 {
-	  @SuppressLint({"DefaultLocale"})
+	
+	/** Affiches des Logs dans la console de l'ordinateur (indiquant une Erreur de programmation )*/
+	  @SuppressLint({"DefaultLocale"}) //cette indication signale que ceci ne fonctionne qu'en local (lorsque le telephone est branché au PC)
 	  public static void LogDanger(String paramString1, String paramString2)
 	  {
 		  Log.println(5, "[" + paramString1.toUpperCase() + "]", paramString2);
 	  }
 	
-	  @SuppressLint({"DefaultLocale"})
+	  /** Affiches un message dans la console de l'ordinateur (Message d'information) */
+	  @SuppressLint({"DefaultLocale"}) //cette indication signale que ceci ne fonctionne qu'en local (lorsque le telephone est branché au PC)
 	  public static void LogSafe(String paramString1, String paramString2)
 	  {
 		  Log.println(4, "[" + paramString1 + "]", paramString2);
 	  }
 
+	  
+	  /** Demarres une nouvelle activité (une vue sur l'écran) */
+	  public static void startActivity(Context p_context, Class<?> p_classe)
+	  {
+		  Intent intent = new Intent();
+		  intent.setClass(p_context, p_classe);
+		  p_context.startActivity(intent);
+	  }
+	  
+	  
+	  /** Convertis une String sous la forme:
+	   * 
+	   * @param paramString : BonJoUr, aurevoir, SALUt
+	   * @return : Bonjour , Aurevoir, Salut
+	   */
 	  public static String convertStringMaj(String paramString)
 	  {
 		  char c = paramString.charAt(0);
@@ -30,13 +50,14 @@ public class Util
 	  }
 
 
-	/** Supprimes tous les focus */
+	/** Supprimes tous les focus de la vue */
 	public static void resetFocus(Activity activity) 
 	{
 		activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);		
 	}
 	
 	
+	/** Renvoies une couleur de police aléatoire en html */
 	  public static String getRandomFont()
 	  {
 		  String str = "red";
@@ -239,5 +260,65 @@ public class Util
 			
 			
 			return msg;
+		}
+		
+		/** Renvoies une couleur aléatoire en héxadécimal */
+		public static int getRandomColor() 
+		{
+			Random r = new Random();
+			
+			switch(r.nextInt(16))
+			{
+				case 0 : 
+					return 0xE67E30; // abricot
+					
+				case 1 :
+					return 0x74D0F1; // Azurclair
+					
+				case 2 :
+					return 0x00000000; // Transparent
+					
+				case 3 :
+					return 0xC8AD7F; //Beige
+					
+				case 4 :
+					return 0xFFCB60; //Aurore (jaune)
+					
+				case 5 :
+					return 0xFBF2B7; //champagne
+					
+				case 6 :
+					return 0xD2CAEC; // Gris de lain
+					
+				case 7 :
+					return  0x54F98D; //Menthe à l'eau
+					
+				case 8 :
+					return 0xFAF0C5; //Platine
+					
+				case 9 :
+					return 0xBEF574; //Pistache
+					
+				case 10 :
+					return 0xE32636; // Rouge
+					
+				case 11 :
+					return 0xE97451; // Terre brulé
+					
+				case 12 :
+					return 0xFAEA73; //Topaze
+					
+				case 13 :
+					return 0xE9C9B1; // Biche
+					
+				case 14 :
+					return 0xCFA0E9; //Parme
+					
+				case 15 :
+					return 0xFD6C9E;  //Rose
+					
+			}
+			
+			return 0;
 		}
 }
