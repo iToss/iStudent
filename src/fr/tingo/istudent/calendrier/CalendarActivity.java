@@ -13,11 +13,11 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ScrollView;
-import fr.tingo.istudent.ActivityStudent;
 import fr.tingo.istudent.R;
+import fr.tingo.istudent.iStudentActivity;
 import fr.tingo.istudent.util.Date;
 
-public class CalendarActivity extends ActivityStudent implements OnClickListener {
+public class CalendarActivity extends iStudentActivity implements OnClickListener {
 
 	public Random rand = new Random();
 	

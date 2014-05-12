@@ -2,9 +2,9 @@ package fr.tingo.istudent.social;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import fr.tingo.istudent.ActivityStudent;
+import fr.tingo.istudent.iStudentActivity;
 
-public class SocialActivity extends ActivityStudent
+public class SocialActivity extends iStudentActivity
 {
 	public SocialLayout socialLayout;
 

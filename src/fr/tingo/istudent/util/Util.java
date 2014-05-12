@@ -28,14 +28,6 @@ public class Util
 	  }
 
 	  
-	  /** Demarres une nouvelle activité (une vue sur l'écran) */
-	  public static void startActivity(Context p_context, Class<?> p_classe)
-	  {
-		  Intent intent = new Intent();
-		  intent.setClass(p_context, p_classe);
-		  p_context.startActivity(intent);
-	  }
-	  
 	  
 	  /** Convertis une String sous la forme:
 	   * 

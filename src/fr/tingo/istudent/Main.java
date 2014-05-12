@@ -35,7 +35,7 @@ public class Main extends Activity implements TabListener {
 				
 		final MainLayout layout = new MainLayout(this); //On instancie le layout qui sera affiché à la fin de l'animation
 			
-		if(!animation_deja_jouer) //S'il y un intent de back, on ne redessine pas l'animation de départ
+		if(animation_deja_jouer) //S'il y un intent de back, on ne redessine pas l'animation de départ
 		{
 			this.setContentView(layout);
 		}

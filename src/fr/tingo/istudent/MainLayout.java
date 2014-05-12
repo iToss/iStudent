@@ -13,8 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import fr.tingo.istudent.calendrier.CalendarActivity;
 import fr.tingo.istudent.cours.CoursActivity;
+import fr.tingo.istudent.emploi_du_temps.TimetableActivity;
 import fr.tingo.istudent.social.SocialActivity;
-import fr.tingo.istudent.util.Util;
 
 @SuppressLint({"ViewConstructor"})
 public class MainLayout extends RelativeLayout implements View.OnClickListener
@@ -69,11 +69,11 @@ public class MainLayout extends RelativeLayout implements View.OnClickListener
 		    
 		    posY += cote_bouton + height / 16;
 		    this.buttonMesCours = new ButtonLogo(paramActivity, R.drawable.my_button_cours, cote_bouton, posX, posY);
-		    this.buttonMesNotes = new ButtonLogo(paramActivity, R.drawable.my_button_social, cote_bouton, posX2, posY);
+		    this.buttonMesNotes = new ButtonLogo(paramActivity, R.drawable.my_button_notes, cote_bouton, posX2, posY);
 		    
 		    posY += cote_bouton + height / 16;
 		    this.buttonEmploiDuTemps = new ButtonLogo(paramActivity, R.drawable.my_button_timetable, cote_bouton, posX, posY);
-		    this.buttonQuitter = new ButtonLogo(paramActivity, R.drawable.my_button_social, cote_bouton, posX2, posY);
+		    this.buttonQuitter = new ButtonLogo(paramActivity, R.drawable.my_button_quitter	, cote_bouton, posX2, posY);
 
 		    
 		    /** On ajoute toutes les vues au layout */
@@ -103,19 +103,19 @@ public class MainLayout extends RelativeLayout implements View.OnClickListener
 		  }
 		  else if(v.equals(this.buttonSocial)) //Si on appuie sur le bouton social
 		  {
-			  Util.startActivity(getContext(), SocialActivity.class); //Demarre une nouvelle activité
+			  iStudentActivity.startActivity(getContext(), SocialActivity.class); //Demarre une nouvelle activité
 		  }
 		  else if(v.equals(this.buttonAgenda))
 		  {
-			  Util.startActivity(getContext(), CalendarActivity.class); //Demarre une nouvelle activité
+			  iStudentActivity.startActivity(getContext(), CalendarActivity.class); //Demarre une nouvelle activité
 		  }
 		  else if(v.equals(this.buttonEmploiDuTemps))
 		  {
-		    	//TODO emploi du temps
+			  iStudentActivity.startActivity(getContext(), TimetableActivity.class);
 		  }
 		  else if(v.equals(this.buttonMesCours))
 		  {
-			  Util.startActivity(getContext(), CoursActivity.class); //Demarre une nouvelle activité
+			  iStudentActivity.startActivity(getContext(), CoursActivity.class); //Demarre une nouvelle activité
 		  }
 	  }
 }

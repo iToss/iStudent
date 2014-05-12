@@ -46,14 +46,20 @@ public final class R {
         public static final int my_button_agenda=0x7f020013;
         public static final int my_button_cours=0x7f020014;
         public static final int my_button_folder=0x7f020015;
-        public static final int my_button_social=0x7f020016;
-        public static final int my_button_timetable=0x7f020017;
-        public static final int my_cahier=0x7f020018;
-        public static final int social_inactive=0x7f020019;
-        public static final int social_pressed=0x7f02001a;
-        public static final int social_unpressed=0x7f02001b;
-        public static final int student=0x7f02001c;
-        public static final int student_2=0x7f02001d;
+        public static final int my_button_notes=0x7f020016;
+        public static final int my_button_quitter=0x7f020017;
+        public static final int my_button_social=0x7f020018;
+        public static final int my_button_timetable=0x7f020019;
+        public static final int my_cahier=0x7f02001a;
+        public static final int notes_pressed=0x7f02001b;
+        public static final int notes_unpressed=0x7f02001c;
+        public static final int quitter_pressed=0x7f02001d;
+        public static final int quitter_unpressed=0x7f02001e;
+        public static final int social_inactive=0x7f02001f;
+        public static final int social_pressed=0x7f020020;
+        public static final int social_unpressed=0x7f020021;
+        public static final int student=0x7f020022;
+        public static final int student_2=0x7f020023;
     }
     public static final class id {
         public static final int RelativeLayoutVierge=0x7f0a0001;

@@ -2,11 +2,13 @@ package fr.tingo.istudent;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class ActivityStudent extends Activity {
+public class iStudentActivity extends Activity {
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -41,5 +43,14 @@ public class ActivityStudent extends Activity {
 		return true;
 	}
 
+	
+	  
+	  /** Demarres une nouvelle activité (une vue sur l'écran) */
+	  public static void startActivity(Context p_context, Class<?> p_classe)
+	  {
+		  Intent intent = new Intent();
+		  intent.setClass(p_context, p_classe);
+		  p_context.startActivity(intent);
+	  }
 
 }

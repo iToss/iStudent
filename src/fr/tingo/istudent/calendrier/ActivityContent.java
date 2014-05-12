@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import fr.tingo.istudent.util.Date;
 
+/** Class contenant l'ensemble des vues du calendrier */
 public class ActivityContent {
 	
 	public CalendarActivity activity;

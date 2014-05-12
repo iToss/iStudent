@@ -21,6 +21,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import fr.tingo.istudent.util.Sauvegarde;
 
+/** Herites de ScrollView (qui correspond à une Vue déroulante lorsque le contenu est geré par un LinearLayout Vertical */
 public class ActualiteScrollView extends ScrollView {
 	
 	public List<TextViewActualite> textview;	
@@ -46,14 +47,13 @@ public class ActualiteScrollView extends ScrollView {
 		this.scrollParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.MATCH_PARENT);
 
 		/** configuration scrollview */
-		this.setLayoutParams(scrollParams);
-		this.setBackgroundColor(android.R.color.transparent);
-		this.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-        this.setFillViewport(true);
-		this.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+		this.setBackgroundColor(android.R.color.transparent); //Couleur de fond du scrollview (transparente, les boutons sont contenus dans le Layout
+		this.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT)); //La scrollview rempli toute l'activity
+        this.setFillViewport(true); //La scrollview rempli toute l'activity
+		this.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY); //On redessine la barre deroulante (pour ne pas voir le tracer du curseur
 
 		/** configuration du layout */
-		this.layout.setOrientation(LinearLayout.VERTICAL);
+		this.layout.setOrientation(LinearLayout.VERTICAL); //Vertical pour que les actualtiés déroules verticalement
 		
 		
 		/** Configuration du titre */

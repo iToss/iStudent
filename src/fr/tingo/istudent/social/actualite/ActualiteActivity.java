@@ -3,9 +3,9 @@ package fr.tingo.istudent.social.actualite;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.StrictMode;
-import fr.tingo.istudent.ActivityStudent;
+import fr.tingo.istudent.iStudentActivity;
 
-public class ActualiteActivity extends ActivityStudent {
+public class ActualiteActivity extends iStudentActivity {
 
 
 	@SuppressLint("NewApi")
