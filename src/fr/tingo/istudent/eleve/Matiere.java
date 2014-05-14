@@ -9,10 +9,10 @@ import fr.tingo.istudent.util.Sauvegarde;
 
 public class Matiere {
 	
-	public List<Float[]> notes = new ArrayList<Float[]>();
-	public float coef;
-	public String matiere;
-	public String id;
+	public List<Float[]> notes = new ArrayList<Float[]>(); //Liste de tableau de décimals contenant une note et son coef
+	public float coef; //Coefficient de la matière dans la moyenne générale
+	public String matiere; //Nom de la matière
+	public String id; 
 
 	
 	public Matiere(Context c, String n_matiere, float n_coef) 
@@ -27,7 +27,7 @@ public class Matiere {
 	
 	public void addNote(float pnote, float pcoef)
 	{
-		// On ajoute la note � la liste de notes
+		// On ajoute la note � la liste de notes
 		Float[] note = {pnote,pcoef};
 		this.notes.add(note);
 		
@@ -36,7 +36,7 @@ public class Matiere {
 	
 	public void removeNote(float pnote, float pcoef)
 	{
-		// On ajoute la note � la liste de notes
+		// On supprime la note � la liste de notes
 		Float[] note = {pnote, pcoef};
 		this.notes.remove(note);
 		
@@ -53,7 +53,7 @@ public class Matiere {
 			diviseur += notes.get(i)[1];		
 		}
 		
-		return (ptTotal / diviseur);
+		return (ptTotal / diviseur); //On calcul la moyenne avec les points totaux divisés par les coefficeints
 	}
 		
 		
