@@ -14,7 +14,6 @@ public class Matiere {
 	public String matiere; //Nom de la matière
 	public String id;
 
-
 	public Matiere(Context c, String n_matiere, float n_coef)
 	{
 		this.coef = n_coef;
