@@ -6,26 +6,27 @@
  * Vous pourrez ensuite recuperer tout un tas d'info sur cette date.
  */
 
-
 package fr.tingo.istudent.util;
 
 import java.util.Calendar;
 
-import android.app.Activity;
+import android.content.Context;
 
 
 public class Date {
 	
-	private int jour;
-	private int mois;
-	private int annee;
+	public static final String jours[] = {"Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"};
 	
-	private String id; // Id d'un date unique
+	public int jour;
+	public int mois;
+	public int annee;
 	
-	private String jourString;
-	private String moisString;
+	public String id; // Id d'un date unique
 	
-	private int idJour;
+	public String jourString;
+	public String moisString;
+	
+	public int idJour;
 
 	
 
@@ -44,17 +45,11 @@ public class Date {
 		this.jour = pJour;
 		this.mois = pMois;
 		annee = pAnnee; //Pas de this car la variable est static
-		this.setMoisString(this.getMoisString(pMois));
+		this.setMoisString(this.convertMonth(pMois));
 		this.id = "" + this.annee + 10000 * this.mois + 1000000 * this.jour; // l'id est de la forme: 27011996 pour le 27 Janvier 1996
 		this.jourString = Date.getDayNameAt(this.jour, this.mois, this.annee);
 	}
 	
-
-	/** Récuperer le nom d'un jour à partir de son numéro dans la semaine */
-	private String getDayString() 
-	{
-		return this.jourString;
-	}
 
 
 	/** Retourne true si l'année est bissextile, false si non */
@@ -64,7 +59,7 @@ public class Date {
 	}
 	
 	/** Récuperer le nom du mois à partir de son ID */
-	public String getMoisString(int pMois)
+	public String convertMonth(int pMois)
 	{		
 		String month = "";
 		switch(pMois)
@@ -280,16 +275,11 @@ public class Date {
 	}
 
 	/** Retourne la date sous forme écrite */
-	public String getDate() 
+	public String toString() 
 	{
-		return this.getDayString() + " " + this.getDay() + " " + this.getMoisString(this.mois) + " " + this.annee;
+		return this.jourString + " " + this.jour + " " + this.moisString + " " + this.annee;
 	}
 	
-	/** Retourne la date sous forme écrite */
-	public String getSpaceDate() 
-	{
-		return this.getDayString() + " " + this.getDay() + " \n" + this.getMoisString(this.mois) + " " + this.annee;
-	}
 
 	/** Recuperer le nom du jour de la semaine ("Lundi", "Mardi", "Mercredi" ...) */
 	public String getDayToString() 
@@ -297,6 +287,8 @@ public class Date {
 		return jourString;
 	}
 
+
+	
 	public int getDayOfTheWeek()
 	{
 		String day = this.getDayToString();
@@ -412,7 +404,6 @@ public class Date {
 	 */
 	public static String getDayNameAt(int day, int month, int Y)
 	{
-		String[] jours = {"Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"};
 		int monthZeller = (month + 10) % 12; //L'algorythme de Zeller utilise un Calendrier qui commence en Mars
 
 		
@@ -480,7 +471,7 @@ public class Date {
 			this.annee++;
 		}
 		
-		this.moisString = this.getMoisString(this.mois);
+		this.moisString = this.convertMonth(this.mois);
 	}
 
 
@@ -498,13 +489,13 @@ public class Date {
 			this.mois--;
 		}
 		
-		this.moisString = this.getMoisString(this.mois);		
+		this.moisString = this.convertMonth(this.mois);		
 	}
 	
 	/** Retournes les devoirs de cette date */
-	public String getDevoir(Activity activity)
+	public String getDevoir(Context c)
 	{
-		return Sauvegarde.loadString(this.getId(), Sauvegarde.DEFAULT_DEVOIRS, activity);
+		return Sauvegarde.loadString(this.getId(), Sauvegarde.DEFAULT_DEVOIRS, c);
 	}
 	
 	
@@ -525,13 +516,13 @@ public class Date {
 	/** Passes à l'année suivante */
 	public void nextYear() 
 	{
-		this.annee++;
+		this.setDate(this.jour, this.mois, this.annee + 1);
 	}
 	
 	/** Passes à l'année précèdente */
 	public void previousYear() 
 	{
-		this.annee--;
+		this.setDate(this.jour, this.mois, this.annee - 1);
 	}
 	
 	

@@ -4,6 +4,7 @@ import java.util.Random;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
@@ -22,7 +23,7 @@ public class DialogCalendar extends Dialog implements OnClickListener
 	
 
 	/** Boite pop up de dialogue personnalisé. */
-	public DialogCalendar(Activity pContext, Blague pQuestion) 
+	public DialogCalendar(Context pContext, Blague pQuestion) 
 	{
 		super(pContext);
 		this.textView = new TextView(pContext);
@@ -33,7 +34,7 @@ public class DialogCalendar extends Dialog implements OnClickListener
 	}
 	
 					
-	public DialogCalendar(Activity pContext, Savoir pSavoir) 
+	public DialogCalendar(Context pContext, Savoir pSavoir) 
 	{
 		super(pContext);
 		this.textView = new TextView(pContext);
@@ -42,7 +43,7 @@ public class DialogCalendar extends Dialog implements OnClickListener
 		this.setContent(this.savoir.getSavoir());
 	}
 	
-	public DialogCalendar(Activity pContext, Citation pCitation) 
+	public DialogCalendar(Context pContext, Citation pCitation) 
 	{
 		super(pContext);
 		this.textView = new TextView(pContext);

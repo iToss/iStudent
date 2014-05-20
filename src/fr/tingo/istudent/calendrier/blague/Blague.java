@@ -2,7 +2,7 @@ package fr.tingo.istudent.calendrier.blague;
 
 import java.util.Random;
 
-import android.app.Activity;
+import android.content.Context;
 import fr.tingo.istudent.R;
 
 
@@ -46,14 +46,14 @@ public class Blague
 	
 	
 	
-	private Activity activity;
+	private Context context;
 	private String question;
 	private String reponse;
 	private EnumBlague categorie;
 	
-	public Blague(Activity pActivity, Random rand)
+	public Blague(Context c, Random rand)
 	{
-		this.activity = pActivity;
+		this.context = c;
 		int alea = rand.nextInt(Blague.QUESTION.length);
 		this.question = QUESTION[alea].getQuestion();
 		this.reponse = QUESTION[alea].getReponse();
@@ -69,23 +69,27 @@ public class Blague
 		this.reponse = pReponse;
 	}
 	
+	/** Recuperes la question de la devinette */
 	public String getQuestion()
 	{
 		return this.question;
 	}
 	
+	/** Recuperes la reponse de la devinette */
 	public String getReponse()
 	{
 		return this.reponse;
 	}
 	
+	/** Retour à la ligne */
 	public String alaligne()
 	{
 		return "\n \n";
 	}
 	
-	private EnumBlague getCategorie() {
-
+	/** Recuperes le type de blague dont il s'agit (Contrepetrie, Blague, Histoire, le savais tu ? ... */
+	private EnumBlague getCategorie() 
+	{
 		return this.categorie;
 	}
 	
@@ -93,29 +97,30 @@ public class Blague
 	{
 		if(this.isQuestion()) // S'il s'agit d'une question
 		{
-			return this.activity.getText(R.string.question) + this.alaligne() + this.question +
-					alaligne() + this.activity.getText(R.string.reponse) + this.reponse;
+			return this.context.getText(R.string.question) + this.alaligne() + this.question + //La méthode Context.getText(id) renvoit une String sauvegardé dans le fichier res/values/string.xml
+					alaligne() + this.context.getText(R.string.reponse) + this.reponse;
 		}
 		else if(this.isHistoire())// S'il s'agit d'une histoire
 		{
-			return this.activity.getText(R.string.histoire) + this.alaligne() + this.question;
+			return this.context.getText(R.string.histoire) + this.alaligne() + this.question;
 		}
 		else if(this.isContrepetrie()) // S'il s'agit d'une contrepetrie
 		{
-			return this.activity.getText(R.string.contrepetrie) + this.alaligne() + this.question;
+			return this.context.getText(R.string.contrepetrie) + this.alaligne() + this.question;
 		}
 		
 		return "Arf... Une erreur est survenu";
 	}
 	
+	/** Retourne la texte de la blague sans la réponse */
 	public String getTextWithoutReponse()
 	{
 		if(this.isQuestion()) // S'il s'agit d'une question
 		{
-			return this.activity.getText(R.string.question) + this.alaligne() + this.question +
-					alaligne() + this.activity.getText(R.string.reponse) + "...";
+			return this.context.getText(R.string.question) + this.alaligne() + this.question + //On remplace la reponse par "..."
+					alaligne() + this.context.getText(R.string.reponse) + "...";
 		}
-		else
+		else //Sinon, on retourn le texte avec la reponse
 		{
 			return this.getTextWithReponse();
 		}

@@ -43,7 +43,7 @@ public class ActualiteScrollView extends ScrollView {
 		this.activity = context;
 		
 		/** Initialisation des objets */
-		this.layout = new LinearLayout (context);
+		this.layout = new LinearLayout(context);
 		this.scrollParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.MATCH_PARENT);
 
 		/** configuration scrollview */

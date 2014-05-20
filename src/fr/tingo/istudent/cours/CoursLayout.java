@@ -9,14 +9,16 @@ import android.content.Intent;
 import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import fr.tingo.istudent.MainLayout;
+import fr.tingo.istudent.R;
 import fr.tingo.istudent.util.Sauvegarde;
 
 public class CoursLayout extends RelativeLayout implements View.OnClickListener
 {
 	public CoursActivity activity;
-	public ButtonFolder button;
+	public Button bouton_ajouter_cahier;
 	
 	public List<CahierButton> cahier;
 
@@ -35,15 +37,17 @@ public class CoursLayout extends RelativeLayout implements View.OnClickListener
 	    new Random(); 
 	    this.activity = ac;
 	    
-	    this.button = new ButtonFolder(ac);
-	    this.button.setText(Html.fromHtml("<strong> Gérer mes cahiers </strong>"));
-	    this.button.setGravity(Gravity.RIGHT);
-	    this.button.setWidth(MainLayout.width - MainLayout.width / 50);
-	    this.button.setX(MainLayout.width / 100);
-	    this.button.setY(MainLayout.height / 100);
-	    this.button.setOnClickListener(this);
+	    this.bouton_ajouter_cahier = new Button(ac);
+	    this.bouton_ajouter_cahier.setGravity(Gravity.CENTER);
+		this.bouton_ajouter_cahier.setBackgroundResource(R.drawable.my_button_folder);
+	    this.bouton_ajouter_cahier.setText(Html.fromHtml("<strong> Gérer mes cahiers </strong>"));
+	    this.bouton_ajouter_cahier.setGravity(Gravity.RIGHT);
+	    this.bouton_ajouter_cahier.setWidth(MainLayout.width - MainLayout.width / 50);
+	    this.bouton_ajouter_cahier.setX(MainLayout.width / 100);
+	    this.bouton_ajouter_cahier.setY(MainLayout.height / 100);
+	    this.bouton_ajouter_cahier.setOnClickListener(this);
 	    
-	    this.addView(this.button);
+	    this.addView(this.bouton_ajouter_cahier);
 
 	    this.cahier = Sauvegarde.loadListCahier("cahiers", ac);
 	    
@@ -54,7 +58,7 @@ public class CoursLayout extends RelativeLayout implements View.OnClickListener
 	private void removeEveryCahier()
 	{
 		removeAllViews();
-		addView(this.button);
+		addView(this.bouton_ajouter_cahier);
   	}
 
 	/** Ajoutes un cahier à la vue */
@@ -100,7 +104,7 @@ public class CoursLayout extends RelativeLayout implements View.OnClickListener
 	/** Lorsqu'on clique ... */
 	public void onClick(View v)
 	{
-		if(v.equals(this.button)) //Sur le bouton pour ajouter un cahier
+		if(v.equals(this.bouton_ajouter_cahier)) //Sur le bouton pour ajouter un cahier
 		{
 			new DialogAddCahier(this.activity).show();
 		}

@@ -12,6 +12,7 @@ import fr.tingo.istudent.R;
 import fr.tingo.istudent.social.actualite.ActualiteActivity;
 import fr.tingo.istudent.view.ButtonStudent;
 
+@SuppressLint("ViewConstructor")
 public class SocialLayout extends RelativeLayout implements OnClickListener {
 
 	public ButtonStudent buttonActualite;

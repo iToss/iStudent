@@ -18,10 +18,10 @@ public class TextViewDate extends TextView implements OnClickListener {
 
 
 	/** Constructeurs, prends l'activity principal et une date */
-	public TextViewDate(CalendarActivity act, Date pDate) {
-		super(act);
+	public TextViewDate(CalendarActivity c, Date pDate) {
+		super(c);
 		this.date = pDate;
-		this.activity = act;
+		this.activity = c;
 		this.setOnClickListener(this);
 	}
 	
@@ -50,12 +50,12 @@ public class TextViewDate extends TextView implements OnClickListener {
 		
 		
 		int color = 0;
-		if(this.date.getDevoir(this.activity) != Sauvegarde.DEFAULT_DEVOIRS) //Si la date contient des devoirs, on l'affiche en CYAN
+		if(this.date.getDevoir(this.getContext()) != Sauvegarde.DEFAULT_DEVOIRS) //Si la date contient des devoirs, on l'affiche en CYAN
 		{
 			color = Color.BLEU;
 		}
 			
-		if(this.date.getDate().equals(Date.getTodayDate().getDate())) //Si la date est la meme que celle d'aujourd'hui, on l'affiche en YELLOW
+		if(this.date.toString().equals(Date.getTodayDate().toString())) //Si la date est la meme que celle d'aujourd'hui, on l'affiche en YELLOW
 		{
 			color = Color.CYAN;
 		}
@@ -88,12 +88,10 @@ public class TextViewDate extends TextView implements OnClickListener {
 	@Override
 	public void onClick(View v) 
 	{
-		this.activity.init(); //On redessine le layout par défaut (bouton Mois et Jour)
-		int jour = Integer.valueOf((String) ((TextView) v).getText()); // Cast compliqué pour récuperer le jour sous forme d'Integer pour initialiser une date au jour cliqué
+		int jour = Integer.valueOf((String) ((TextView) v).getText()); // On recupere le contenu de la vue sous forme de String, puis on la converti en Integer
 		int mois = getDate().getMois();
 		int annee = getDate().getAnnee();
-		JournalierActivityContent activityJour = new JournalierActivityContent(this.activity, new Date(jour, mois, annee)); // Création du contenu de la vue "Journaliere" (agenda)
-		activityJour.configure();			
+		this.activity.setLayout(new JournalierLayout(this.activity, new Date(jour, mois, annee)));
 	}
 
 	

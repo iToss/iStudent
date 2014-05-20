@@ -9,7 +9,7 @@ public class Eleve {
 	
 	public String name;
 	public int age;
-	public List<fr.tingo.istudent.eleve.Matiere> matieres;
+	public List<Matiere> matieres;
 	
 	public Eleve(Activity activity)
 	{

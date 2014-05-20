@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.text.Html;
+import android.text.Spanned;
 import fr.tingo.istudent.cours.CahierButton;
 import fr.tingo.istudent.cours.CoursActivity;
 import fr.tingo.istudent.eleve.Matiere;
@@ -15,6 +17,22 @@ public class Sauvegarde {
 	
 	public static final String DEFAULT_DEVOIRS = ""; // Le texte par defaut des devoirs
 
+	
+	
+	/**Sauvegarde une SpannedString */
+	public static void saveSpannedString(String id, Spanned spn, Context context)
+	{
+		Sauvegarde.saveString(id, Html.toHtml(spn), context);
+	}
+	
+	/**Charge une SpannedString */
+	public static Spanned loadSpanned(String id, Context context)
+	{
+		return Html.fromHtml(Sauvegarde.loadString(id, "", context));
+	}
+	
+	
+	
 	
 	
 	/** Charges une liste de cahier */
@@ -212,6 +230,63 @@ public class Sauvegarde {
 	
 	
 	
+	/** Recuperes une String enregistré dans les SharedPreferences (mémoire morte du téléphone) */
+	public static List<Integer> loadListInt(String id, Context context)
+	{
+		List<Integer> list = new ArrayList<Integer>();
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context); // On recupere les SharedPreferences
+		preferences = PreferenceManager.getDefaultSharedPreferences(context); // On recupere les SharedPreferences
+		
+		int maxStr = preferences.getInt("int_" + id, Color.WHITE);
+
+		for(int i = 0; i < maxStr; i++)
+		{
+			list.add(preferences.getInt(id + i, 0));
+		}
+
+		return list;
+	}
+	
+	/** Enregistres une liste d'Integer dans les SharedPreferences (mémoire morte du téléphone) */
+	public static void saveListInt(String id, List<Integer> list, Context c)
+	{
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c); // On recupere les SharedPreferences
+		SharedPreferences.Editor editor = preferences.edit(); // On recupere l'edit des SharedPreferences
+		
+		int size = list.size();
+		editor.putInt("int_" + id, size);
+		
+		for(int i = 0; i < size; i++)
+		{
+			editor.putInt(id + i, list.get(i));
+		}
+		
+		editor.commit();
+	}
+	
+	/** Ajoutes une string à la liste sauvegardé */
+	public static void addIntegerToList(String id, Integer integer, Context c)
+	{		
+		List<Integer> list = Sauvegarde.loadListInt(id, c);
+		list.add(integer);
+		Sauvegarde.saveListInt(id, list, c);
+	}
+	
+	
+	/** Supprime un Integer à la liste sauvegardé */
+	public static void removeIntegerFromList(String id, int intremoved, Context context)
+	{
+		List<Integer> list = Sauvegarde.loadListInt(id, context);
+		list.remove(intremoved);
+		Sauvegarde.saveListInt(id, list, context);
+	}
+
+	
+	
+	
+	
+	
+	
 	
 	
 	/** Recuperes une String enregistré dans les SharedPreferences (mémoire morte du téléphone) */
@@ -251,32 +326,26 @@ public class Sauvegarde {
 	/** Ajoutes une string à la liste sauvegardé */
 	public static void addStringToList(String id, String str, Context c)
 	{		
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c); // On recupere les SharedPreferences
-		SharedPreferences.Editor editor = preferences.edit(); // On recupere l'edit des SharedPreferences
-		
-		int maxStr = preferences.getInt("str_" + id, 0) + 1;
-
-		editor.putInt("str_" + id, maxStr);
-		editor.putString(id + maxStr, str);
-		
-		editor.commit();
+		List<String> list = Sauvegarde.loadListString(id, c);
+		list.add(str);
+		Sauvegarde.saveListString(id, list, c);
 	}
 	
 	
 	/** Supprime une string à la liste sauvegardé */
-	public static void removeStringFromList(String id, String strRemoved, Activity activity)
+	public static void removeStringFromList(String id, String strRemoved, Context context)
 	{
-		List<String> list = Sauvegarde.loadListString(id, activity);
+		List<String> list = Sauvegarde.loadListString(id, context);
 		list.remove(strRemoved);
-		Sauvegarde.saveListString(id, list, activity);
+		Sauvegarde.saveListString(id, list, context);
 	}
 	
 	/** Supprimes la string du rang ID de la liste */
-	public static void removeStringFromListById(String string, int id, CoursActivity activity) 
+	public static void removeStringFromListById(String string, int id, Context context) 
 	{
-		List<String> list = Sauvegarde.loadListString(string, activity);
+		List<String> list = Sauvegarde.loadListString(string, context);
 		list.remove(id);
-		Sauvegarde.saveListString(string, list, activity);
+		Sauvegarde.saveListString(string, list, context);
 	}
 	
 	
@@ -284,9 +353,9 @@ public class Sauvegarde {
 	
 	
 	/** Enregistres une String dans les SharedPreferences (mémoire morte du téléphone) */
-	public static void saveString(String id, String stringSaved, Activity activity)
+	public static void saveString(String id, String stringSaved, Context c)
 	{
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity); // On recupere les SharedPreferences
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c); // On recupere les SharedPreferences
 		SharedPreferences.Editor editor = preferences.edit(); // On recupere l'edit des SharedPreferences
 		editor.putString(id, stringSaved);
 		editor.commit();	
@@ -296,10 +365,10 @@ public class Sauvegarde {
 	/** Recuperes une String enregistré dans les SharedPreferences (mémoire morte du téléphone)
 	 *  Args: ID de la String, String en cas d'erreur de chargement (not found), activity actuelle
 	 **/
-	public static String loadString(String id, String errorString, Activity activity)
+	public static String loadString(String id, String errorString, Context c)
 	{
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity); // On recupere les SharedPreferences
-		preferences = PreferenceManager.getDefaultSharedPreferences(activity); // On recupere les SharedPreferences
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c); // On recupere les SharedPreferences
+		preferences = PreferenceManager.getDefaultSharedPreferences(c); // On recupere les SharedPreferences
 		return preferences.getString(id, errorString);
 	}
 
@@ -308,9 +377,9 @@ public class Sauvegarde {
 	
 	
 	/** Enregistres une Integer dans les SharedPreferences (mémoire morte du téléphone) */
-	public static void saveInt(String id, int intSaved, Context activity)
+	public static void saveInt(String id, int intSaved, Context context)
 	{
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity); // On recupere les SharedPreferences
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context); // On recupere les SharedPreferences
 		SharedPreferences.Editor editor = preferences.edit(); // On recupere l'edit des SharedPreferences
 		editor.putInt(id, intSaved);
 		editor.commit();	
@@ -318,10 +387,10 @@ public class Sauvegarde {
 	
 	
 	/** Recuperes une Integer enregistré dans les SharedPreferences (mémoire morte du téléphone) */
-	public static int loadInt(String id, int errorInt, Context activity)
+	public static int loadInt(String id, int errorInt, Context context)
 	{
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity); // On recupere les SharedPreferences
-		preferences = PreferenceManager.getDefaultSharedPreferences(activity); // On recupere les SharedPreferences
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context); // On recupere les SharedPreferences
+		preferences = PreferenceManager.getDefaultSharedPreferences(context); // On recupere les SharedPreferences
 		return preferences.getInt(id, errorInt);
 	}
 	

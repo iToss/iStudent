@@ -16,18 +16,17 @@ public class TextViewActualite extends TextView {
 		super(context);
 	}
 
-	
+	/** Objet d'affichage de texte pour les Actualités */
 	@SuppressLint("NewApi")
 	public TextViewActualite(Context context, String actualite) {
 		super(context);
-		this.setGravity(Gravity.CENTER);
-		this.setTextSize(16.0f);
-
-		this.setText(Html.fromHtml(actualite)); //On transcrit le text de l'html pour la mis en forme
+		this.setGravity(Gravity.CENTER); // Centres le texte sur la vue
+		this.setTextSize(16.0f); //Taille de la police
+		this.setText(Html.fromHtml(actualite)); //On transcrit le texte de l'html pour une mis en page
 	}
 
 	
-	/** Appelez lorsque le textView est dessiné, on dessine le texte, le cadre...*/
+	/** Appelez lorsque le textView est dessiné, on dessine le texte, le cadre gris...*/
 	@Override
     public void draw(Canvas canvas) 
     {

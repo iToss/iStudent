@@ -11,6 +11,7 @@ import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,7 +47,7 @@ public class DialogAddCahier extends Dialog implements View.OnClickListener
 	    
 	    setTitle(Html.fromHtml("<strong><u><font color=\"DeepSkyBlue\">  Mes cahiers </font></strong></u>"));
 	    this.layout = new LinearLayout(this.activity);
-	    this.layoutParams = new LinearLayout.LayoutParams(-2, -1);
+	    this.layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
 	    this.layout.setLayoutParams(this.layoutParams);
 	    this.layout.setBackgroundColor(Color.TRANSPARENT);
 	    this.layout.setOrientation(LinearLayout.VERTICAL);

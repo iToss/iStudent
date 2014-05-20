@@ -3,11 +3,8 @@ package fr.tingo.istudent.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.tingo.istudent.MainLayout;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.KeyEvent;
@@ -18,177 +15,170 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import fr.tingo.istudent.MainLayout;
 
+@SuppressLint("ViewConstructor")
 public class EditTextStudent extends EditText implements View.OnClickListener, View.OnFocusChangeListener, AdapterView.OnItemSelectedListener
 {
-	  public Button b_color;
-	  public Button b_gras;
-	  public Button b_italique;
-	  public Button b_souligner;
-	  public String id;
-	  public Spinner spinnerColor;
+	public Button[] bouton_tableau;
+	public String id;
+	public Spinner spinnerColor;
 	
+	  /** Objet qui hérite de l'EditText (champ pour entrer du texte) 
+	   * @param paramActivity : Activité dans laquel l'edittext est contenu
+	   * @param layout : layout dans lequel l'edittext (pour y ajouter les boutons d'options de mis en page
+	   * @param y : hauteur à laquel se situe la barre de mis en page
+	   */
 	  @SuppressLint({"NewApi"})
 	  public EditTextStudent(Activity paramActivity, RelativeLayout layout, int y)
 	  {
 	    super(paramActivity);
 	   
-	    this.setOnClickListener(this);
-	    this.setOnFocusChangeListener(this);
+	    this.bouton_tableau = new Button[4]; //Tableau contenant 4 boutons pour la barre d'outils
+	    for(int i = 0; i < bouton_tableau.length; i++) //On fait une boucle de 0 à la longueu du tableau
+	    {
+	    	this.bouton_tableau[i] = new Button(paramActivity); //On instancie chaque bouton
+	    	this.bouton_tableau[i].setId(i); //On définit l'ID unique de chaque bouton
+	    	this.bouton_tableau[i].setX(MainLayout.width / 100 + MainLayout.width / 6 * i); //On place chaque bouton sur l'axe des abscices
+	    	this.bouton_tableau[i].setOnClickListener(this); //On place les boutosn sur écouteur de clique
+	    	this.bouton_tableau[i].setY(y); //Position Y de chauqe bouton (identique, dépends de l'argument utilisé pour l'objet
+	    	layout.addView(this.bouton_tableau[i]); //On ajoute chaque bouton au layout de l'EditText
+	    }
+	    
+	    //on definit le texte de chaque boutons: 
+	    this.bouton_tableau[0].setText(Html.fromHtml("<strong>G</strong>")); //Bouton pour mettre en gras
+	    this.bouton_tableau[1].setText(Html.fromHtml("<u>S</u>")); //Bouton pour souligner
+	    this.bouton_tableau[2].setText(Html.fromHtml("<i>I</i>")); //Bouton pour mettre en italique
+	    this.bouton_tableau[3].setText("•"); //Bouton pour modifier la couleur une fois choisit dans la liste déroulante
+	    
+	    this.setOnClickListener(this); //On place l'edittext sous ecouteur de clique
+	    this.setOnFocusChangeListener(this); //On place la vue sur écouteur de changement de focalisation (lorque l'user utilise ou non l'objet)
 	  
-	    this.b_gras = new Button(paramActivity);
-	    this.b_souligner = new Button(paramActivity);
-	    this.b_italique = new Button(paramActivity);
-	    this.b_color = new Button(paramActivity);
-	    this.spinnerColor = new Spinner(paramActivity);
-	   
-	    this.b_gras.setText(Html.fromHtml("<strong>G</strong>"));
-	    this.b_souligner.setText(Html.fromHtml("<u>S</u>"));
-	    this.b_italique.setText(Html.fromHtml("<i>I</i>"));
+	    this.spinnerColor = new Spinner(paramActivity); //Instanciation du Spinner (liste déroulante) des couleurs
 
-	    List<String> choices = new ArrayList<String>();
+	    List<String> choices = new ArrayList<String>(); //Liste de string
+	    choices.add("Noir"); //On ajoute les couleurs disponibles
 	    choices.add("Rouge");
 	    choices.add("Vert");
 	    choices.add("Jaune");
 	    choices.add("Bleu");
 	    choices.add("Violet");
-	    choices.add("Orange");  
-	    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, choices);
-	    this.spinnerColor.setAdapter(spinnerArrayAdapter);
+	    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, choices); //Un adapter de List de String pour la liste déroulante
+	    this.spinnerColor.setAdapter(spinnerArrayAdapter); //On définit les choix possibles de la liste déroulante des couleurs
 	    
-	    this.b_gras.setX(MainLayout.width / 100);
-	    this.b_souligner.setX(MainLayout.width / 100 + MainLayout.width / 6);
-	    this.b_italique.setX(MainLayout.width / 100 + 2 * (MainLayout.width / 6));
-	    this.b_color.setX(MainLayout.width / 100 + 3 * (MainLayout.width / 6));
-	    this.spinnerColor.setX(MainLayout.width / 50 + 4 * (MainLayout.width / 6));
-	    
-	    this.b_gras.setOnClickListener(this);
-	    this.b_souligner.setOnClickListener(this);
-	    this.b_italique.setOnClickListener(this);
-	    this.b_color.setOnClickListener(this);
-	    this.spinnerColor.setOnItemSelectedListener(this);
-	    
-	    this.b_gras.setId(1);
-	    this.b_souligner.setId(2);
-	    this.b_italique.setId(3);
-	    this.b_color.setId(4);
-	    
-	    this.b_gras.setY(y);
-	    this.b_souligner.setY(y);
-	    this.b_italique.setY(y);
-	    this.b_color.setY(y);
-	    this.spinnerColor.setY(y);
-	    
-	    layout.addView(this.b_gras);
-	    layout.addView(this.b_souligner);
-	    layout.addView(this.b_italique);
-	    layout.addView(this.b_color);
+	    this.spinnerColor.setX(MainLayout.width / 50 + 2 * MainLayout.width / 3); //On place la liste déroualnte sur l'axe des abscices
+	    this.spinnerColor.setOnItemSelectedListener(this); //On place le spinner sous écouteur de clique
+	    this.spinnerColor.setY(y); //Position Y du spinner
 	    layout.addView(this.spinnerColor);
 	    
-	    this.b_gras.setVisibility(INVISIBLE);
-	    this.b_souligner.setVisibility(INVISIBLE);
-	    this.b_italique.setVisibility(INVISIBLE);
-	    this.b_color.setVisibility(INVISIBLE);
+	    for(int i = 0; i < bouton_tableau.length; i++) //On fait une boucle de 0 à la longueu du tableau
+	    	this.bouton_tableau[i].setVisibility(INVISIBLE); //On rend tous les boutons invisibles
+	    
 	    this.spinnerColor.setVisibility(INVISIBLE);
 	  }
 	
-	  public EditTextStudent(Context paramContext)
+	  /** Recuperes le code HTML de la couleur choisit */
+	  private String getHtmlColorFrom(int id)
 	  {
-	    super(paramContext);
-	  }
-	
-	  private String getEnglishColor(String str)
-	  {
-		  if(str.equals("Rouge"))
-			  return "red";
-		  else if(str.equals("Vert"))
-			  return "green";
-		  else if(str.equals("Jaune"))
-			  return "yellow";
-		  else if(str.equals("Bleu"))
-			  return "blue";
-		  else if(str.equals("Violet"))
-			  return "purple";
-		  else if(str.equals("Orange"))
-			  return "orange";
-		  else
-			  return "black";
+		  switch(id) //On switch l'id 
+		  {
+		  	case 0: //S'il est égal à 0...
+		  		return "black";
+		  		
+		  	case 1:
+		  		return "red";
+		  		
+		  	case 2:
+		  		return "green";
+		  		
+		  	case 3:
+		  		return "yellow";
+		  		
+		  	case 4:
+		  		return "blue";
+		  		
+		  	case 5:
+		  		return "purple";
+		  		
+		  	default: //sinon, on renvoit du noir
+		  		return "black";
+		  }
 	  }
 	
 	  
+	  /** Ajoutes une balise à l'edittext, pour que la mis en forme se fasse automatiquement (convertissant les balises insérées de l'HTML vers du texte en forme */
 	  public void addBalises(String ... balises)
 	  {
-		  int start = this.getSelectionStart();
-		  int end = this.getSelectionEnd();
+		  int start = this.getSelectionStart(); //On recupere la 1ere selection du curseur
+		  int end = this.getSelectionEnd(); //La deuxieme selection du curseur
 		  
 		  if(start != end) //Si la selection n'est pas vide
 		  {
-			  String focus = this.getText().toString().substring(start, end);
+			  String focus = this.getText().toString().substring(start, end); //On recupere le texte qui est sous le curseur
 			  
-			  String html = Html.toHtml(this.getText());
+			  String html = Html.toHtml(this.getText()); //On convertis ce texte en html (ce qui permis le multi-balisage, texte souligné, gras en couleur)
 			  
-			  Spanned text = Html.fromHtml(html.replace(focus, balises[0] + focus + balises[1]));
-			  this.setText(text);
-			  this.setSelection(this.getText().length());
+			  Spanned text = Html.fromHtml(html.replace(focus, balises[0] + focus + balises[1])); //On crée une Spanned (qui est un String utilisé pour la mis en page, et on convertis le texte précèdent ajouté aux balises en html pour la mis en page)
+			  this.setText(text); //On definit le texte de l'edit text
+			  this.setSelection(this.getText().length()); //On place la selection du curseur à la fin du texte
 		  }
 	  }
 	
 	  
 	  public void onClick(View v) //lorsuq'on clique sur une balise
 	  {
-		  if(v.getId() == 1)
+		  if(v.getId() == 0) //Si son ID est égal à 1 ...
 		  {
 			  this.addBalises("<strong>", "</strong>");
 		  }
-		  else if(v.getId() == 2)
+		  else if(v.getId() == 1)
 		  {
 			  this.addBalises("<u>", "</u>");
 		  }
-		  else if(v.getId() == 3)
+		  else if(v.getId() == 2)
 		  {
 			  this.addBalises("<i>", "</i>");
 		  }
-		  else if(v.getId() == 4)
+		  else if(v.getId() == 3)
 		  {
-			  this.addBalises("<font color=\"" + getEnglishColor(this.spinnerColor.getSelectedItem().toString()) + "\">", "</font>");
+			  this.addBalises("<font color=\"" + getHtmlColorFrom(this.spinnerColor.getSelectedItemPosition()) + "\">", "</font>");
 		  }
 			  
 	  }
 	
+	  /** Lorsque la focalisation de l'utilisateur sur l'objet change */
 	  public void onFocusChange(View paramView, boolean hasFocus)
 	  {
-	    if(hasFocus)
-	    {
-	      this.b_gras.setVisibility(VISIBLE);
-	      this.b_souligner.setVisibility(VISIBLE);
-	      this.b_italique.setVisibility(VISIBLE);
-	      this.b_color.setVisibility(VISIBLE);
-	      this.spinnerColor.setVisibility(VISIBLE);
+	    if(hasFocus) //Si la vue recupere le focus
+	    {  
+		    for(int i = 0; i < bouton_tableau.length; i++) //On fait une boucle de 0 à la longueu du tableau
+		    	this.bouton_tableau[i].setVisibility(VISIBLE); //On rend tous les boutons visibles
+		    
+		    this.spinnerColor.setVisibility(VISIBLE);
 	    }
-	    else
+	    else //Si la vue perd le focus
 	    {
-	      this.b_gras.setVisibility(INVISIBLE);
-	      this.b_souligner.setVisibility(INVISIBLE);
-	      this.b_italique.setVisibility(INVISIBLE);
-	      this.b_color.setVisibility(INVISIBLE);
-	      this.spinnerColor.setVisibility(INVISIBLE);
+		    for(int i = 0; i < bouton_tableau.length; i++) //On fait une boucle de 0 à la longueu du tableau
+		    	this.bouton_tableau[i].setVisibility(INVISIBLE); //On rend tous les boutons invisibles
+		    
+		    this.spinnerColor.setVisibility(INVISIBLE);
 	    }
 	  }
 	
+	  /** Lorsqu'on choisit un item du spinner (liste deroulante) ... */
 	  public void onItemSelected(AdapterView<?> paramAdapterView, View paramView, int paramInt, long paramLong)
 	  {
-		  String text = this.spinnerColor.getSelectedItem().toString();
-		  this.b_color.setText(Html.fromHtml("<font color=\"" + getEnglishColor(text) + "\">•</font>"));
+		  this.bouton_tableau[3].setText(Html.fromHtml("<font color=\"" + this.getHtmlColorFrom(this.spinnerColor.getSelectedItemPosition()) + "\">•</font>")); //On modifie le texte du bouton pour changer la couleur
 	  }
 	
-	  
+	  	
+	  /** Lorsqu'on appuie sur une touche du clavier */
 	  public boolean onKeyDown(int paramInt, KeyEvent paramKeyEvent)
 	  {
 		  return super.onKeyDown(paramInt, paramKeyEvent);
 	  }
 	
-	  public void onNothingSelected(AdapterView<?> paramAdapterView)
-	  {
-		  //Comment ceci peut se produire?
-	  }
+	  /** Lorsqu'il n'y a aucuns objets selectionné dans la liste déroulante */
+	  public void onNothingSelected(AdapterView<?> paramAdapterView){}
+	  
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+@SuppressLint("Registered")
 public class iStudentActivity extends Activity {
 	
 	@SuppressLint("NewApi")
