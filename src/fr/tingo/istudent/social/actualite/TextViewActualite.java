@@ -35,7 +35,7 @@ public class TextViewActualite extends TextView {
 		paint.setColor(fr.tingo.istudent.util.Color.NOIR);
 		canvas.drawRect(new Rect(0, 0, this.getWidth(), this.getHeight()), paint);
 		
-		paint.setColor(fr.tingo.istudent.util.Color.LIGHTEN);
+		paint.setColor(fr.tingo.istudent.util.Color.GRIS_CLAIR);
 		canvas.drawRect(new Rect(4, 4, this.getWidth() - 4, this.getHeight() - 4), paint);
 		
 		super.draw(canvas);

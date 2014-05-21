@@ -11,6 +11,7 @@ public final class R {
     public static final class anim {
         public static final int gros_to_petit=0x7f040000;
         public static final int main=0x7f040001;
+        public static final int petit_to_gros=0x7f040002;
     }
     public static final class attr {
     }

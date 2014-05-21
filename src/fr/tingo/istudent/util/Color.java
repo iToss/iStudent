@@ -9,6 +9,7 @@ public class Color {
 	public static final int GRAY = android.graphics.Color.rgb(120, 120, 120);
 	public static final int GRAY_MID = android.graphics.Color.rgb(180, 180, 180);
 	public static final int LIGHTGRAY = android.graphics.Color.rgb(160, 160, 160);
+	public static final int GRIS_CLAIR = android.graphics.Color.rgb(236, 236, 236);
 	public static final int LIGHTEN = android.graphics.Color.rgb(216, 216, 216);
 
 	public static final int BROWN = android.graphics.Color.rgb(87, 57, 26);

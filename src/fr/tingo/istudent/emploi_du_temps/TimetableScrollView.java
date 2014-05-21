@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
@@ -154,7 +155,9 @@ public class TimetableScrollView extends ScrollView implements OnClickListener, 
 			Sauvegarde.removeStringFromListById("timetable_cours_" + this.jour, v.getId(), this.activity); //On supprime le créneau des sauvegardes
 			Sauvegarde.removeIntFromListById("timetable_creneau_" + this.jour, v.getId(), this.activity); //On supprime le créneau des sauvegardes
 			Toast.makeText(this.getContext(), "Vous avez bien supprimé ce créneau.", Toast.LENGTH_LONG).show();
-			this.activity.onCreate(this.activity.getIntent().getExtras()); //On rappelle la méthode de création de l'activité pour synchroniser tout l'emploi du temps
+			Bundle b = new Bundle();
+			b.putInt("jour", this.jour);
+			this.activity.onCreate(b); //On rappelle la méthode de création de l'activité pour synchroniser tout l'emploi du temps
 		}
 		
 		return false;

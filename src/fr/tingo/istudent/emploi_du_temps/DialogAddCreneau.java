@@ -123,7 +123,9 @@ public class DialogAddCreneau extends Dialog implements OnClickListener {
 	@Override
 	public void onClick(View v)  //Lorsqu'on clique sur un élement sous écouteur de clique (ici uniquement le bouton valider)
 	{
-		if(this.editTextCours.getText() != null && this.editTextCreneau[0].getText() != null && this.editTextCreneau[1].getText() != null)
+		if(this.editTextCours.getText().toString().length() > 0 &&
+				this.editTextCreneau[0].getText().toString().length() > 0 &&
+					this.editTextCreneau[1].getText().toString().length() > 0) //On verifie qu'aucuns des champs ne soient vides
 		{
 			String text = "<center>" 
 								+  "<font color=\"" + getHtmlColorFrom(this.spinnerColor.getSelectedItemPosition()) + "\"> "

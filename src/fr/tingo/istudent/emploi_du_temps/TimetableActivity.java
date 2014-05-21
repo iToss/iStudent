@@ -27,7 +27,12 @@ public class TimetableActivity extends iStudentActivity implements OnTouchListen
 	public void onCreate(Bundle b)
 	{
 		super.onCreate(b);
-		this.jour =  (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) + 5) % 6; //Retournes l'id du jour (0 pour Dimanche, 1 pour Lundi, 2 pour Mardi etc...)
+		
+		if(b != null) //Si les extras ne sont pas nuls...
+			this.jour = b.getInt("jour"); //C'est qu'on souhaite un jour précis
+		else //Sinon on prends le jour d'aujourdhui
+			this.jour =  (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) + 5) % 6; //Retournes l'id du jour (0 pour Dimanche, 1 pour Lundi, 2 pour Mardi etc...)
+		
 		this.point_down = null; //Point lorsqu'on touche l'écran
 		this.point_up = new Point(0, 0); //Point lorsqu'on releve le doight de l'écran
 		this.setDay();

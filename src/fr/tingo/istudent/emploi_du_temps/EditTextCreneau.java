@@ -40,7 +40,7 @@ public class EditTextCreneau extends EditText implements TextWatcher{
 		if(!text.contains("h"))
 		{
 			this.setText(text.toString() + "h");
-			this.setSelection(this.getText().toString().length()); //On place le curseur à la fin
+			this.setSelection(this.getText().toString().length() - 1); //On place le curseur à la fin
 		}
 		
 		if(text.length() > 5)

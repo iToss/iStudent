@@ -12,13 +12,14 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Space;
 import android.widget.TextView;
+import fr.tingo.istudent.MainLayout;
 import fr.tingo.istudent.util.Sauvegarde;
 
 /** Herites de ScrollView (qui correspond à une Vue déroulante lorsque le contenu est geré par un LinearLayout Vertical */
@@ -55,13 +56,13 @@ public class ActualiteScrollView extends ScrollView {
 		/** configuration du layout */
 		this.layout.setOrientation(LinearLayout.VERTICAL); //Vertical pour que les actualtiés déroules verticalement
 		
+		/** Ajout d'un espace vide (estétique) */
+		this.addSpace(32);
 		
 		/** Configuration du titre */
 		TextView title = new TextView(context);		
-		SpannableString content = new SpannableString("\n" + "Actualités" + "\n");
-		content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-		title.setText(content);
-		title.setTextSize(24.0f);
+		title.setText(Html.fromHtml("<strong>Actualités</strong>"));
+		title.setTextSize(MainLayout.width / 20);
 		title.setGravity(Gravity.CENTER);
 		this.layout.addView(title);
 		
@@ -118,7 +119,17 @@ public class ActualiteScrollView extends ScrollView {
 	/** Ajoute une vue d'actualité au layout */
 	public void addActualite(TextViewActualite t)
 	{
+		this.addSpace(32);
 		this.layout.addView(t);
+	}
+
+	/** Ajoutes un espace vide au layout */
+	@SuppressLint("NewApi")
+	private void addSpace(int ratioSpace) 
+	{
+		Space space = new Space(this.getContext());
+		space.setLayoutParams(new LayoutParams(MainLayout.width, MainLayout.height / ratioSpace));
+		this.layout.addView(space);
 	}
    
 
