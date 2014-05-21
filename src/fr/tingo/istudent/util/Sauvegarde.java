@@ -280,7 +280,15 @@ public class Sauvegarde {
 		list.remove(intremoved);
 		Sauvegarde.saveListInt(id, list, context);
 	}
-
+	
+	/** Supprimes un Integer du rang index de la liste */
+	public static void removeIntFromListById(String id, int index, Context context) 
+	{
+		List<Integer> list = Sauvegarde.loadListInt(id, context);
+		list.remove(index);
+		Sauvegarde.saveListInt(id, list, context);
+	}
+	
 	
 	
 	

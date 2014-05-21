@@ -51,7 +51,7 @@ public class Main extends Activity implements TabListener {
 			  
 			textView = new TextView(this); // On instancie le nouveau textview
 			textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL); //On le centre
-			textView.setText("iStudent, connecting people..."); //On definit son message
+			textView.setText("iStudent, pour une année scolaire réussi..."); //On definit son message
 			
 			Animation anim = AnimationUtils.loadAnimation(this, R.anim.main); // On charge une animation
 			anim.setAnimationListener(new AnimationListener() {
